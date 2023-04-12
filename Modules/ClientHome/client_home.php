@@ -146,11 +146,12 @@ function getOrderStatus($pdo, $file_name){
 	switch ($status['state_type']){
 		case 0: $status_string = "Новый заказ"; break;
 		case 1: $status_string = "Заказ взят в работу"; break;
-		case 2: $status_string = "Получено первичное предложение"; break;
+		case 2: $status_string = "Скачать первичное предложение"; break;
 		case 3: $status_string = "Запрос на доработку"; break;
-		case 4: $status_string = "Повторное предложение"; break;
+		case 4: $status_string = "Скачать повторное предложение"; break;
 		case 5: $status_string = "Одобрен клиентом"; break;
 		case 6: $status_string = "Заказ на формировании"; break;
+		case 7: $status_string = "Заказ отменен"; break;
 	}	
 	
 	// Считаем количество повторных предложений (если они есть)	
@@ -169,9 +170,10 @@ function getOrderStatus($pdo, $file_name){
 	$lastStatus['order_id'] = $status['order_id'];
 	$lastStatus['order_name'] = "{$status['order_key']}_{$status['order_type']}";
 	$lastStatus['order_access_line'] = $status['order_hash'];
-
 	return $lastStatus;
 }
+
+
 
 ?>
 <div class="my-3 p-3 bg-white rounded box-shadow">	
@@ -274,26 +276,38 @@ function getOrderStatus($pdo, $file_name){
 	</div>
 </div>
 
-
 <div class="my-3 p-3 bg-white rounded box-shadow sendingfiles">
 	<h3>Отправленные документы</h3>
-	<?php		
+	<?php
+		// Получаем массив файлов, к которым есть доступ у пользователя НА ОТПРАВКУ
+		$stm = $pdo->prepare("SELECT file_name FROM orders WHERE 1 ORDER BY order_date DESC");
+		$stm->execute();
+		$ord = $stm->fetchAll(PDO::FETCH_COLUMN);		
+
 		$u_dir = $_SERVER['DOCUMENT_ROOT'].'/uploaded_documents' . "/". $user_id;
-		// $u_dir = $_SERVER['DOCUMENT_ROOT'].'/uploaded_documents' . "/". $user_id;
+		
 		// Проверяем, существует ли каталог и есть ли в нем файлы отличные от . и ..
 		if(is_dir($u_dir) && count(scandir($u_dir)) > 2){
-			$dir = opendir($u_dir); // Открываем папку
-			echo "<table class='table table-sm fileslist'>";
-			echo "<tr><th>Файл</th><th>Размер</th><th>Отправлен</th><th>Клиент</th><th>Команда</th><th>Повторных предложений</th><th>Статус заказа</th><th>Дата</th><th>Действия</th></tr>";
-			while($file = readdir($dir)){
+			echo "<table class='table table-sm fileslist' id='oneTable'>";
+			echo "<thead>";			
+			echo "<tr><th>Файл</th><th>Размер</th><th>Отправлен</th><th>Заказ</th><th>Статус заказа</th><th>Дата</th><th>Действия</th></tr>";
+			echo "</thead>";
+			echo "<tbody>";
+			foreach($ord as $file){
+
 				if($file != '.' && $file != '..' && !mb_stripos($file, '_OFFER_')  && !mb_stripos($file, '_REVISION_')){
-					echo "<tr>";
+
+					if (getOrderStatus($pdo, $file)['state_type'] == 7){
+						echo "<tr style = 'background-color: #ffdddd'>";
+					} else if(getOrderStatus($pdo, $file)['state_type'] == 6){
+						echo "<tr style = 'background-color: #daffda'>";
+					}else{
+						echo "<tr>";
+					}
 					echo "<td><span class='onetablefile'>" . $file . "</span></td>";
 					echo "<td>" . human_filesize(filesize($u_dir."/".$file), 2)."</td>";
 					echo "<td>" . date("d.m.Y H:i", filemtime($u_dir."/".$file)) . "</td>";
-					echo "<td>" . $user_name . "&nbsp;" .$user_surname ."</td>";
-					echo "<td>" . $user_team_name . "</td>";
-					echo "<td>" . getOrderStatus($pdo, $file)['revision_count']."</td>";
+					echo "<td>".getOrderStatus($pdo, $file)['order_name']."_ORDER</td>";
 					// Выводим ссылку на файл оффера по заказу
 					if (getOrderStatus($pdo, $file)['state_type'] == 2 || getOrderStatus($pdo, $file)['state_type'] == 4){
 
@@ -337,6 +351,7 @@ function getOrderStatus($pdo, $file_name){
 						break;
 						case 5:
 						case 6:
+						case 7:
 						echo "<td><button type='button' data-order-name='".getOrderStatus($pdo, $file)['order_name']."' data-state-id='".getOrderStatus($pdo, $file)['order_id']."' class='btn btn-info btn-sm table-button orderHistory' data-toggle='modal' data-target='#orderHistory'>История заказа</button></td>";
 						break;
 					}
@@ -344,12 +359,17 @@ function getOrderStatus($pdo, $file_name){
 					echo "</tr>\n";
 				}
 			}
+			echo "</tbody>";
 			echo "</table>";
 		}else{
 			echo "<div class='alert alert-warning' role='alert'>У вас нет загруженных файлов!</div>";
 		}
 	?>
 </div>
+
+
+
+
 
 <!-- История заказа: Вертикально выравненное модальное окно -->
 <div class="modal fade" id="orderHistory" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -413,5 +433,5 @@ function getOrderStatus($pdo, $file_name){
 
 		</div>
 	</div>
-	</div>
+</div>
 </div>

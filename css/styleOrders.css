@@ -119,7 +119,7 @@ img {
 }
 
 #message_body,
-#message_body_revision {
+#message_body_cancel {
 	width: 100%;
 	resize: none;
 	outline: none;

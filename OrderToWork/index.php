@@ -39,6 +39,7 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 			case 4: getInfobutton("info", "Отправлено повторное предложение!"); break;
 			case 5: getInfobutton("info", "Одобрен клиентом!"); break;
 			case 6: getInfobutton("info", "Документ передан на формирование!"); break;
+			case 7:	getInfobutton("info", "Заказ отменен!"); break;
 		}	
 	}else if ($operation == "sendfirstoffer"){
 	// Если по заказу отсылается первое предложение
@@ -52,6 +53,7 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 			case 4: //
 			case 5: //
 			case 6:	getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;
+			case 7:	getInfobutton("info", "Заказ отменен!"); break;
 		}
 	}else if ($operation == "sendnextoffer"){
 		switch($state_type){
@@ -64,6 +66,7 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 			case 4: getInfobutton("info", "Заказ на рассмотрении у клиента!"); break;
 			case 5: //
 			case 6:	getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;
+			case 7:	getInfobutton("info", "Заказ отменен!"); break;
 		}
 	}else if ($operation == "towork"){
 		switch($state_type){
@@ -79,7 +82,20 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 				sendMailToClientEnd($user_login, $order_key, $order_type, $team_manager_mail, $team_name); // Отправляем клиенту инормацию о начале работы с заказом
 				getInfobutton("info", "Заказ отправлен на формирование!"); break;
 			case 6:	getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;
+			case 7:	getInfobutton("info", "Заказ отменен!"); break;
 		}
+	}else if ($operation == "cancelorder"){
+		switch($state_type){
+			case 0: sendCancel($access_line); break; // Открываем форму перврначальной отправки предложения клиенту => sendOffer.php
+			case 1: //
+			case 2: getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;
+			case 3: sendCancel($access_line); break; // Открываем форму перврначальной отправки предложения клиенту => sendOffer.php
+			case 4: //
+			case 5: //
+			case 6:	getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;
+			case 7:	getInfobutton("info", "Заказ отменен!"); break;
+		}
+
 	}
 }else{
 	getInfobutton("danger", "Ошибка доступа или документ отсутствует в базе");	// Если посетитель не входит в доступный пулл IP адресов

@@ -4,8 +4,44 @@ $(document).ready(function () {
 	$('#sendRevision').attr("disabled", "enable");// Делаем кнопку отправки НЕ активной, пока не выбран файл для отправки
 	$('#sendOrderErrors').hide();
 	$('#sendRevisionErrors').hide();
-});
 
+	// Оформление таблицы заказов DataTable
+	$('#oneTable').DataTable({
+		responsive: true,
+		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Все"]],
+		paging: false,//Отключаем пангинацию
+		"bFilter": false,//Отключаем поиск
+		"info": false,//Отключаем инфо панели
+		"order": [[ 4, "desc" ]],
+		"aoColumnDefs": [
+			{
+				'bSortable': false, //запрещаем сортировку по всем столбцам
+				'aTargets': [0, 1, 3]
+			}
+		],
+		"columnDefs": [
+				{
+				"targets": [0, 1, 2, 3, 4, 5], //Номер столбца 15, 16, 17 столбец - временно включен
+				"visible": true //Видимость столбца
+				}
+			],
+		//Настройка языка
+		"language": {
+			"lengthMenu": "Показывать _MENU_ записей на странице",
+			"zeroRecords": "Извините - ничего не найдено",
+			"info": "Показано _PAGE_ страниц из _PAGES_",
+			"infoEmpty": "Нет подходящих записей",
+			"infoFiltered": "(Отфильтровано из _MAX_ записей)",
+			"sSearch": "Искать: ",
+			"oPaginate": {
+				"sFirst": "Первая",
+				"sLast": "Последняя",
+				"sNext": "Следующая",
+				"sPrevious": "Предыдущая"
+			}
+		}
+	});
+});
 var errorType = ''; // Ошибки
 
 // Функция форматирования строки
@@ -43,8 +79,6 @@ $('input[name=upload_file]').on("change", function () {
 });
 
 
-
-
 // Делаем кнопку отправки активной, если файл выбран (для модального окна)
 $('input[name=upload_file_rev]').on("change", function () {	
 	var size = this.files[0].size; // размер в байтах
@@ -76,7 +110,6 @@ $('input[name=upload_file_rev]').on("change", function () {
 });
 
 
-
 // Блоки ввода текста 
 $('#message_body').on("keyup", function () { 
 	var message_lenght = $('#message_body').val();
@@ -94,7 +127,6 @@ $('#message_body_rev').on("keyup", function () {
 		$('#sendRevision').attr("disabled", "enable");// Делаем кнопку отправки НЕ активной, пока не выбран файл для отправки
 	}
 });
-
 
 
 // Проверяем кнопку Reset для основной формы

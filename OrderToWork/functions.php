@@ -136,4 +136,31 @@ function sendOffer($access_line){
 
 	echo "</div>\n\r";
 }
+
+
+// Функция безусловной отмены заказа
+function sendCancel($access_line){
+	echo "<div class='offer'>\n\r";
+	echo "<h3>Отмена заказа (опишите причину)</h3>\n\r";
+	echo "<form id='cancel_odrder_form' class='sendoffer' enctype='multipart/form-data' method='POST' action ='/OrderToWork/cancelOrder.php'>\n\r";
+
+	echo "<input type='hidden' name='access_line' value='{$access_line}'>\n\r";
+	
+	echo "<div class='send_offer_field'>\n\r";
+	echo "<textarea id='message_body_cancel' name='message_body_cancel' rows='6' cols='50' maxlength='500'></textarea>\n\r";	
+
+	echo "<div class='message_info' id='message_info'></div>\n\r";
+
+	echo "</div>\n\r";
+
+	echo "<div class='send_offer_button'>\n\r";
+	
+	echo "<button type='submit' class='sub' id='submit' >Отправить</button>\n\r";
+	echo "</div>\n\r";
+	
+	echo "</form>\n\r";	
+
+	echo "</div>\n\r";
+
+}
 ?>

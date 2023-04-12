@@ -15,9 +15,9 @@
 	<!-- Bootstrap CSS -->	
 	<!-- <link rel="stylesheet" href="/css/bootstrap.css"> -->
 	<link rel="stylesheet" href="/css/bootstrap.min.css">	
-	<!-- <link rel="stylesheet" href="/css/datatables.css"> -->
+	<link rel="stylesheet" href="/css/datatables.css">
 	<link rel="stylesheet" href="/css/datatables.min.css">
-	<!-- <link rel="stylesheet" href="/css/dataTables.bootstrap4.css"> -->
+	<link rel="stylesheet" href="/css/dataTables.bootstrap4.css">
 	<link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">	
 	<link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
 

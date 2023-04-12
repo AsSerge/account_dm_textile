@@ -25,6 +25,7 @@ function getOrderHistory($pdo, $order_id){
 				case 4: $status_string = "Отправлено повторное предложение"; break;
 				case 5: $status_string = "Предложение одобрено клиентом"; break;
 				case 6: $status_string = "Заказ отправлен на формирование"; break;
+				case 7: $status_string = "Заказ отменен логистом"; break;
 			}	
 			$date_string = date('d.m.Y H:i', strtotime ($st['state_date']));
 			$info_string .= "<tr><td>{$status_string}</td><td>{$date_string}</td></tr>";

@@ -35,6 +35,10 @@
 
 			<?php if($user_role == 'kln'){?>
 			<li class="nav-item">
+				<a class="nav-link" href="/index.php?module=ClientHome">Заказы</a>
+			</li>
+
+			<li class="nav-item">
 				<a class="nav-link" href="/index.php?module=SendMessages">Сообщения</a>
 			</li>
 	
@@ -45,6 +49,7 @@
 
 
 			<?php if($user_role == 'adm'){?>
+
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Администратор</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
