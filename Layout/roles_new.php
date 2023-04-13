@@ -3,11 +3,12 @@
 
 $module = $_GET['module'];
 
+
 // Разрешения
 $role_arr = array();
-$role_arr['adm'] = ['UserList', 'UserRegistration', 'TaskList', 'CustomerList', 'TaskEdit', 'LibraryEdit', 'LibraryList', 'CreativeListView', 'Dashboard', 'HelpDesk', 'DocumentSetting', 'SendMessages', 'SendMailSending'];
-$role_arr['mgr'] = ['ClientList', 'ClientRegistration', 'DocumentSetting', 'HelpDesk', 'SendMessages', 'SendMailSending'];
-$role_arr['kln'] = ['HelpDesk', 'ClientHome', 'SendMessages'];
+$role_arr['adm'] = ['UserList', 'UserRegistration', 'TaskList', 'CustomerList', 'TaskEdit', 'LibraryEdit', 'LibraryList', 'CreativeListView', 'Dashboard', 'HelpDesk', 'DocumentSetting', 'SendMessages', 'SendMailSending', 'PublicDocs'];
+$role_arr['mgr'] = ['ClientList', 'ClientRegistration', 'DocumentSetting', 'HelpDesk', 'SendMessages', 'SendMailSending', 'PublicDocs'];
+$role_arr['kln'] = ['HelpDesk', 'ClientHome', 'SendMessages', 'PublicDocs'];
 
 
 // Состав модулей
@@ -36,6 +37,7 @@ $module_arr['ClientRegistration'] = ['/Modules/ClientRegistration/client_registr
 $module_arr['ClientHome'] = ['/Modules/ClientHome/client_home.php', '/Modules/ClientHome/client_home.js'];
 $module_arr['SendMessages'] = ['/Modules/SendMessages/send_messages.php', '/Modules/SendMessages/send_messages.js'];
 $module_arr['SendMailSending'] = ['/Modules/SendMailSending/send_mail_sending.php', '/Modules/SendMailSending/send_mail_sending.js'];
+$module_arr['PublicDocs'] = ['/Modules/PublicDocs/public_docs.php', '/Modules/PublicDocs/public_docs.js'];
 
 
 

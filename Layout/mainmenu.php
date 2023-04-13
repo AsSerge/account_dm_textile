@@ -27,9 +27,16 @@
 					<a  class="dropdown-item" href="/index.php?module=SendMailSending">Рассылка</a>
 					</div>
 			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="/index.php?module=PublicDocs">Документы</a>
+			</li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="/index.php?module=HelpDesk">Помощь</a>
 			</li>
+
+
 
 			<?php } ?>
 
@@ -41,7 +48,11 @@
 			<li class="nav-item">
 				<a class="nav-link" href="/index.php?module=SendMessages">Сообщения</a>
 			</li>
-	
+
+			<li class="nav-item">
+				<a class="nav-link" href="/index.php?module=PublicDocs">Документы</a>
+			</li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="/index.php?module=HelpDesk">Помощь</a>
 			</li>
@@ -71,6 +82,9 @@
 					<a  class="dropdown-item" href="/index.php?module=SendMessages">Сообщение</a>
 					<a  class="dropdown-item" href="/index.php?module=SendMailSending">Рассылка</a>
 					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/index.php?module=PublicDocs">Документы</a>
 				</li>
 
 				<li class="nav-item">
