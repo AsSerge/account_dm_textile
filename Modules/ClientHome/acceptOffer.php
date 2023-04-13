@@ -3,7 +3,7 @@
 // Безусловное принятие предложения (оффера) через интерфейс клиента
 //*******************************************************************/
 include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php");
-include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
+// include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
 include_once($_SERVER['DOCUMENT_ROOT'].'/OrderToWork/functions.php'); // Функции API
 
 if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))

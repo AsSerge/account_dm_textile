@@ -125,7 +125,9 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 		// $sender_mail - Почта отправителя
 		// $sender_name - Имя отправителя
 
-		$mail = 'Tsvetkov-SA@grmp.ru';
+		include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
+		$mail = ($testing_mode) ? $tester_mail : $team_manager_mail;
+		// $mail = 'Tsvetkov-SA@grmp.ru';
 		// $mail = $team_manager_mail; // Общая почта подргуппы для отпрвки заявки !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		$subject = $file_prefix.' [ЗАКАЗ]';
 		$message = "Добрый день. Заявка {$order_type} во вложении";
@@ -146,7 +148,8 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 
 
 		/* Отправка копии заказа на почту клиенту **********************************************************************************************************************/
-		$mail = 'Tsvetkov-SA@grmp.ru';
+		$mail = ($testing_mode) ? $tester_mail : $user_login;
+		// $mail = 'Tsvetkov-SA@grmp.ru';
 		// $mail = $user_login;
 		$subject = $file_prefix.' [ЗАКАЗ]';
 		$message = "Добрый день. Вы отправили заявку {$file_prefix}. Файл заявки во вложении.";

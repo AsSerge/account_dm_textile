@@ -53,8 +53,10 @@ if($order_id){
 
 
 		//************************ Отправка письма ЛОГИСТ => КЛИЕНТ ****************************// 
+		include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
+		$mail = ($testing_mode) ? $tester_mail : $user_login;
 
-		$mail = 'Tsvetkov-SA@grmp.ru'; // Получатель сообщения
+		// $mail = 'Tsvetkov-SA@grmp.ru'; // Получатель сообщения
 		// $mail = $user_login'; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		$subject = ($state_type == 3) ? $file_prefix.' [ПОВТОРНОЕ ПРЕДЛОЖЕНИЕ]' : $file_prefix.' [ПРЕДЛОЖЕНИЕ]';

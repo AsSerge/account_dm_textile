@@ -11,7 +11,7 @@
 <div class="wrapper">	
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php"); // Подключаем базу
-include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
+// include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
 include_once($_SERVER['DOCUMENT_ROOT'].'/OrderToWork/functions.php'); // Функции API
 // Основные настройки для работы с api
 $allowIPArray = ["31.173.222.2", "87.229.247.154", "213.27.12.29", "185.180.40.121", "5.167.52.86", "127.0.0.1"]; // Задаем список доступных адресов, с которых может работать логист

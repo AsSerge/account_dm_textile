@@ -3,6 +3,7 @@
 //**               Блок тестирования               **/
 //***************************************************/
 
-$testing = false;
+$testing_mode = true;
 $tester_mail = 'Tsvetkov-SA@grmp.ru';
+
 ?>

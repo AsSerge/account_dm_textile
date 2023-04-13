@@ -34,7 +34,9 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 	}
 
 	// Отправляем сообщение ЛОГИСТУ ОТ КЛИЕНТА с запросом на изменение Оффера
-	$mail = 'Tsvetkov-SA@grmp.ru'; // !!!!!!!!!!!!!!!!!!!!!!!!!! ЗАМЕНИТЬ  !!!!!!!!!!!!!!!!!!!!!!!!!! 
+	include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
+	$mail = ($testing_mode) ? $tester_mail : $team_manager_mail;
+	// $mail = 'Tsvetkov-SA@grmp.ru'; // !!!!!!!!!!!!!!!!!!!!!!!!!! ЗАМЕНИТЬ  !!!!!!!!!!!!!!!!!!!!!!!!!! 
 	// $mail = $team_manager_mail;
 	$subject = $order_key ."_".$order_type."_ORDER_". "[ЗАПРОС НА ИЗМЕНЕНИЕ]";	
 	$message = "Добрый день!";

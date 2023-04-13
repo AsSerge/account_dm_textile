@@ -31,7 +31,9 @@ if($order_id){
 		$offer_key = $order_key."_".$order_type; // Оффер-кей соответствует его ключу ордера
 		$file_prefix = $offer_key."_ORDER_";
 
-		$mail = 'Tsvetkov-SA@grmp.ru'; // Получатель сообщения
+		include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
+		$mail = ($testing_mode) ? $tester_mail : $user_login;
+		// $mail = 'Tsvetkov-SA@grmp.ru'; // Получатель сообщения
 		// $mail = $user_login'; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		$subject = $file_prefix.' [ЗАКАЗ ОТМЕНЕН]';

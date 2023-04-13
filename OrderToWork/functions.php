@@ -1,6 +1,6 @@
 <?php
 // ФУНКЦИИ API
-
+include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
 // Функция установки статуса ордера
 function setOrderState($pdo, $order_id, $state_type){
 	// Добавляем информацию о статусе ордера в базу
@@ -57,7 +57,9 @@ function order($pdo, $access_line){
 
 // Функция отправки сообщения Логисту (Безусловное принятие прадложения по заказу)
 function sendMailToLogist($mail, $order_key, $order_type, $user_login, $user_name, $user_surname, $user_id, $access_line){
-	$mail = 'Tsvetkov-SA@grmp.ru';
+	include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
+	$mail = ($testing_mode) ? $tester_mail : $team_manager_mail;
+	// $mail = 'Tsvetkov-SA@grmp.ru';
 	// $mail = $team_manager_mail; // Общая почта подргуппы для отправки заявки !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	// Получаем путь к файлу оффера (возможны только два расширения файлов xls и xlsx)
@@ -87,7 +89,9 @@ function sendMailToLogist($mail, $order_key, $order_type, $user_login, $user_nam
 function sendMailToClientEnd($mail, $order_key, $order_type, $team_manager_mail, $team_name){
 
 	// Отправляем информационное письмо клиенту
-	$mail = 'Tsvetkov-SA@grmp.ru';
+	include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
+	$mail = ($testing_mode) ? $tester_mail : $order['user_login'];
+	// $mail = 'Tsvetkov-SA@grmp.ru';
 	// $mail = $order['user_login']; // КЛИЕНТ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	$subject = $order_key ."_".$order_type."_ORDER_". "[ФОРМИРОВАНИЕ ЗАКАЗА]";
 	$message = "Добрый день!";
