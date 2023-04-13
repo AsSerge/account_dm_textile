@@ -135,7 +135,7 @@ function human_filesize($bytes, $decimals = 2) {
 }
 
 // Функция проверки статуса Ордера, привязанного к документу. Выводим Последний доступный статус максимальный по времени
-function getOrderStatus($pdo, $file_name){	
+function ost($pdo, $file_name){	
 	$stm = $pdo->prepare("SELECT state_type, state_date, O.order_key, O.order_type, O.user_id, O.order_id, O.order_hash FROM orders_states AS ST LEFT JOIN orders AS O ON (ST.order_id = O.order_id) WHERE O.file_name = :file_name ORDER BY ST.state_date DESC");
 	$stm->execute([
 		'file_name' => $file_name
@@ -297,9 +297,9 @@ function getOrderStatus($pdo, $file_name){
 
 				if($file != '.' && $file != '..' && !mb_stripos($file, '_OFFER_')  && !mb_stripos($file, '_REVISION_')){
 
-					if (getOrderStatus($pdo, $file)['state_type'] == 7){
+					if (ost($pdo, $file)['state_type'] == 7){
 						echo "<tr style = 'background-color: #ffdddd'>";
-					} else if(getOrderStatus($pdo, $file)['state_type'] == 6){
+					} else if(ost($pdo, $file)['state_type'] == 6){
 						echo "<tr style = 'background-color: #daffda'>";
 					}else{
 						echo "<tr>";
@@ -307,52 +307,52 @@ function getOrderStatus($pdo, $file_name){
 					echo "<td><span class='onetablefile'>" . $file . "</span></td>";
 					echo "<td>" . human_filesize(filesize($u_dir."/".$file), 2)."</td>";
 					echo "<td>" . date("d.m.Y H:i", filemtime($u_dir."/".$file)) . "</td>";
-					echo "<td>".getOrderStatus($pdo, $file)['order_name']."_ORDER</td>";
+					echo "<td>".ost($pdo, $file)['order_name']."_ORDER</td>";
 					// Выводим ссылку на файл оффера по заказу
-					if (getOrderStatus($pdo, $file)['state_type'] == 2 || getOrderStatus($pdo, $file)['state_type'] == 4){
+					if (ost($pdo, $file)['state_type'] == 2 || ost($pdo, $file)['state_type'] == 4){
 
 						// Получаем путь к файлу оффера (фозможны только два расширения файлов xls и xlsx)
-						if(file_exists($_SERVER['DOCUMENT_ROOT']."/uploaded_documents/{$user_id}/".getOrderStatus($pdo, $file)['offer_file'].".xls")){
+						if(file_exists($_SERVER['DOCUMENT_ROOT']."/uploaded_documents/{$user_id}/".ost($pdo, $file)['offer_file'].".xls")){
 
-							$offer_file = getOrderStatus($pdo, $file)['offer_file'].".xls";
-							echo "<td><a href='/Modules/ClientHome/action.php?file={$offer_file}&link_type=offer' class='smallbutton'>".getOrderStatus($pdo, $file)['status']."</a></td>";
+							$offer_file = ost($pdo, $file)['offer_file'].".xls";
+							echo "<td><a href='/Modules/ClientHome/action.php?file={$offer_file}&link_type=offer' class='smallbutton'>".ost($pdo, $file)['status']."</a></td>";
 
-						}else if(file_exists($_SERVER['DOCUMENT_ROOT']."/uploaded_documents/{$user_id}/".getOrderStatus($pdo, $file)['offer_file'].".xlsx")){
+						}else if(file_exists($_SERVER['DOCUMENT_ROOT']."/uploaded_documents/{$user_id}/".ost($pdo, $file)['offer_file'].".xlsx")){
 
-							$offer_file = getOrderStatus($pdo, $file)['offer_file'].".xlsx";
-							echo "<td><a href='/Modules/ClientHome/action.php?file={$offer_file}&link_type=offer' class='smallbutton'>".getOrderStatus($pdo, $file)['status']."</a></td>";
+							$offer_file = ost($pdo, $file)['offer_file'].".xlsx";
+							echo "<td><a href='/Modules/ClientHome/action.php?file={$offer_file}&link_type=offer' class='smallbutton'>".ost($pdo, $file)['status']."</a></td>";
 
 						}else{
-							echo "<td>" . getOrderStatus($pdo, $file)['status'] . "</td>";
+							echo "<td>" . ost($pdo, $file)['status'] . "</td>";
 						}
 
 					}else{
-						echo "<td>" . getOrderStatus($pdo, $file)['status'] . "</td>";
+						echo "<td>" . ost($pdo, $file)['status'] . "</td>";
 					}
-					echo "<td>" . date('d.m.Y H:i', strtotime (getOrderStatus($pdo, $file)['date'])) . "</td>";
+					echo "<td>" . date('d.m.Y H:i', strtotime (ost($pdo, $file)['date'])) . "</td>";
 
-					switch (getOrderStatus($pdo, $file)['state_type']){
+					switch (ost($pdo, $file)['state_type']){
 						case 0: echo "<td><button type='button' data-dir='".$user_id."/".$file."' class='btn btn-danger btn-sm table-button deletefile'>Удалить заявку</button></td>"; break;
 						case 1: echo "<td><button type='button' data-dir='".$user_id."/".$file."' class='btn btn-warning btn-sm table-button deletefile' disabled>Заявка в работе</button></td>"; break;
 						case 2:
 						echo "<td>";
-						echo "<button type='button' data-access-line='".getOrderStatus($pdo, $file)['order_access_line']."' class='btn btn-success btn-sm table-button acceptoffer'>Принять</button>&nbsp;";
-						echo "<button type='button' data-access-line='".getOrderStatus($pdo, $file)['order_access_line']."' class='btn btn-danger btn-sm table-button revisionoffer' data-toggle='modal' data-target='#orderRevision'>Доработать</button>";
+						echo "<button type='button' data-access-line='".ost($pdo, $file)['order_access_line']."' class='btn btn-success btn-sm table-button acceptoffer'>Принять</button>&nbsp;";
+						echo "<button type='button' data-access-line='".ost($pdo, $file)['order_access_line']."' class='btn btn-danger btn-sm table-button revisionoffer' data-toggle='modal' data-target='#orderRevision'>Доработать</button>";
 						echo "</td>";
 						break;
 						case 3:
-						echo "<td><button type='button' data-order-name='".getOrderStatus($pdo, $file)['order_name']."' data-state-id='".getOrderStatus($pdo, $file)['order_id']."' class='btn btn-info btn-sm table-button orderHistory' data-toggle='modal' data-target='#orderHistory'>История заказа</button></td>";
+						echo "<td><button type='button' data-order-name='".ost($pdo, $file)['order_name']."' data-state-id='".ost($pdo, $file)['order_id']."' class='btn btn-info btn-sm table-button orderHistory' data-toggle='modal' data-target='#orderHistory'>История заказа</button></td>";
 						break;
 						case 4:
 						echo "<td>";
-						echo "<button type='button' data-access-line='".getOrderStatus($pdo, $file)['order_access_line']."' class='btn btn-success btn-sm table-button acceptoffer'>Принять</button>&nbsp;";
-						echo "<button type='button' data-access-line='".getOrderStatus($pdo, $file)['order_access_line']."' class='btn btn-danger btn-sm table-button revisionoffer' data-toggle='modal' data-target='#orderRevision'>Доработать</button>";
+						echo "<button type='button' data-access-line='".ost($pdo, $file)['order_access_line']."' class='btn btn-success btn-sm table-button acceptoffer'>Принять</button>&nbsp;";
+						echo "<button type='button' data-access-line='".ost($pdo, $file)['order_access_line']."' class='btn btn-danger btn-sm table-button revisionoffer' data-toggle='modal' data-target='#orderRevision'>Доработать</button>";
 						echo "</td>";
 						break;
 						case 5:
 						case 6:
 						case 7:
-						echo "<td><button type='button' data-order-name='".getOrderStatus($pdo, $file)['order_name']."' data-state-id='".getOrderStatus($pdo, $file)['order_id']."' class='btn btn-info btn-sm table-button orderHistory' data-toggle='modal' data-target='#orderHistory'>История заказа</button></td>";
+						echo "<td><button type='button' data-order-name='".ost($pdo, $file)['order_name']."' data-state-id='".ost($pdo, $file)['order_id']."' class='btn btn-info btn-sm table-button orderHistory' data-toggle='modal' data-target='#orderHistory'>История заказа</button></td>";
 						break;
 					}
 

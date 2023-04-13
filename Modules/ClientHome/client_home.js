@@ -41,7 +41,39 @@ $(document).ready(function () {
 			}
 		}
 	});
+	// getMyTable();
+	// setInterval(getMyTable, 500);
+	// setInterval(()=>location.reload(), 5000);
 });
+
+
+// Выполнение запроса по таймеру (режим тестирования)
+function getMyTable() { 
+	LongLine = '<table width="100%">';
+	$.ajax({
+		url: "/Modules/ClientHome/_get_my_table.php",
+		success: function (data) {
+			var log_arr = jQuery.parseJSON(data);
+			var log_array = Object.entries(log_arr); // Преобразуем Объект в массив для перебора
+	
+			if (log_array.length >= 1) {
+					log_array.forEach(function (item) {
+						LongLine += "<tr>";
+						LongLine += "<td>" + item[1]['order_date'] + "</td>";
+						LongLine += "<td>" + item[1]['order_key'] + "_" + item[1]['order_type'] + "</td>";
+						LongLine += "<td>" + item[1]['user_id'] + "</td>";
+						LongLine += "<td>" + item[1]['file_name'] + "</td>";
+						LongLine += "</tr>";
+					});
+			}
+			LongLine += '</table>';
+			$('#MyTestBar').html(LongLine);	
+		}
+	});
+	// console.log("Данные");
+// location.reload(); // Перегружаем страницу
+}
+
 var errorType = ''; // Ошибки
 
 // Функция форматирования строки
