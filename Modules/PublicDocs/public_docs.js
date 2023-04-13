@@ -10,7 +10,7 @@ $(document).ready(function () {
 		paging: false,//Отключаем пангинацию
 		"bFilter": false,//Отключаем поиск
 		"info": false,//Отключаем инфо панели
-		"order": [[ 2, "desc" ]],
+		"order": [[ 3, "desc" ]],
 		"aoColumnDefs": [
 			{
 				'bSortable': false, //запрещаем сортировку по всем столбцам
@@ -94,4 +94,11 @@ $('button[type=reset]').on("click", function () {
 	$("#preview").attr('src', '../images/brand/document_snd.png');
 	$('button[type=submit]').attr("disabled", "enable")// Делаем кнопку отправки НЕ активной, пока не выбран файл для отправки
 });
+
+// Кнопка удаления файла
+$('.deletefile').on("click", function () { 
+	var fileToDelete = $(this).data('fileid');
+	
+});
+
 
