@@ -2,18 +2,17 @@ $(document).ready(function () {
 	"use strict";
 	var user_id = getCookie('id');
 	$.ajax({
-		url: '/Modules/Dashboard/dashboard_all_statistic.php',
-		datatype: 'html',
+		url: '/Modules/Dashboard/dashboard_all_statistic.php',		
 		type: 'post',
 		data: {
 			user_id: user_id,
 			option: 'all_statistic'
 		},
 		success: function (data) {
-			$("#all").html("Всего пользователей: " + writeStatistic(data, 'all'));
-			$("#adm").html("Всего администраторов: " + writeStatistic(data, 'adm'));
-			$("#mgr").html("Всего менеджеров: " + writeStatistic(data, 'mgr'));
-			$("#kln").html("Всего клиентов: " + writeStatistic(data, 'kln'));
+				$("#all").html("Всего пользователей: " + writeStatistic(data, 'all'));
+				$("#adm").html("Всего администраторов: " + writeStatistic(data, 'adm'));
+				$("#mgr").html("Всего менеджеров: " + writeStatistic(data, 'mgr'));
+				$("#kln").html("Всего клиентов: " + writeStatistic(data, 'kln'));
 		}
 	});
 });
