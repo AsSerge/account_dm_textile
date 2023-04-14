@@ -76,14 +76,13 @@
 
 					foreach($docs as $doc){
 						echo "<tr>";
-						echo "<td>" . fileImage($doc['document_file']). "&nbsp;" . $doc['document_file'] . "</td>";
+						echo "<td><a href='/Modules/PublicDocs/action.php?file=".$doc['document_file']."'>".fileImage($doc['document_file']). "&nbsp;" . $doc['document_file']."</a></td>";
 						echo "<td>" . human_filesize(filesize($_SERVER['DOCUMENT_ROOT']."/public_docs/".$doc['document_file']), 2). "</td>";
-						echo "<td><a href='/Modules/PublicDocs/action.php?file=".$doc['document_file']."'>".$doc['document_description']."</a></td>";
+						echo "<td>".$doc['document_description']."</td>";
 						echo "<td>".date('d.m.Y H:i', strtotime ($doc['document_date']))."</td>";
-
 						echo "<td>";
 							if  ($user_role == 'adm'){
-								echo "<button type='button' data-fileid='".$doc['document_id']."' class='btn btn-outline-danger btn-sm deletefile'>Удалить</button>";
+								echo "<button type='button' data-documentid='".$doc['document_id']."' class='btn btn-outline-danger btn-sm deletefile'>Удалить</button>";
 							}else{
 								echo "<a href='/Modules/PublicDocs/action.php?file=".$doc['document_file']."'>Скачать</a>";
 							}

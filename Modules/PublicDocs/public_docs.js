@@ -97,7 +97,20 @@ $('button[type=reset]').on("click", function () {
 
 // Кнопка удаления файла
 $('.deletefile').on("click", function () { 
-	var fileToDelete = $(this).data('fileid');
+	var document_id = $(this).data('documentid');
+	$.ajax({
+		url: '/Modules/PublicDocs/deleteDocument.php',
+		type: "POST", //метод отправки
+		dataType: "html", //формат данных
+		data: {
+			document_id: document_id
+		},
+		success: function (data) {
+			console.log(data);			
+			// setInterval(()=>location.reload(), 500);
+			location.reload();
+		}
+	});
 	
 });
 
