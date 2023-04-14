@@ -66,7 +66,8 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
 					<a class="dropdown-item" href="/index.php?module=UserList">Список пользователей</a>	
 					<a class="dropdown-item" href="/index.php?module=UserRegistration">Регистрация пользователя</a>
-					<a class="dropdown-item" href="/index.php?module=DocumentSetting">Доступ к документам</a>
+					<a class="dropdown-item" href="/index.php?module=DocumentSetting">Приватные документы</a>
+					<a class="dropdown-item" href="/index.php?module=PublicDocs"">Общие документы</a>
 					</div>
 				</li>
 
@@ -83,10 +84,6 @@
 					<a  class="dropdown-item" href="/index.php?module=SendMailSending">Рассылка</a>
 					</div>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/index.php?module=PublicDocs">Документы</a>
-				</li>
-
 				<li class="nav-item">
 					<a class="nav-link" href="/index.php?module=HelpDesk">Помощь</a>
 				</li>

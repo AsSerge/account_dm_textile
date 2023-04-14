@@ -8,6 +8,11 @@
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
+		<h4>Общая статистика</h4>
+		<div id='all'></div>
+		<div id='adm'></div>
+		<div id='mgr'></div>
+		<div id='kln'></div>
 	</div>
 </div>
 

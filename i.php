@@ -1,8 +1,12 @@
 <?php
 
-$team_manager_mail = "Goroshko-IA@dmtextile.ru";
-include_once($_SERVER['DOCUMENT_ROOT'].'/Layout/engineering.php'); // Блок тестирования
-$mail = ($testing_mode) ? $tester_mail : $team_manager_mail;
-echo $mail;
+$myArr = [
+	'0'=>['1','2'],
+	'1'=>['3','4'],
+	'2' => ['5','6']
+];
 
+
+echo json_encode($myArr);  // Кодируем массив в Json
+// echo "Выводим данные для " . $_POST['user_id'] . " " . $_POST['option'];
 ?>

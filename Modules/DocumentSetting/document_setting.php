@@ -52,7 +52,11 @@
 	
 </style>
 <div class="col-md-12" id="DocumentSetting">
-	<h3>Комманда <?=$user_team_name?></h3>
+
+	<?php
+	if ($user_role == 'mgr'){echo "<h3>Комманда {$user_team_name}</h3>";}
+	else if ($user_role == 'adm'){echo "<h3>Клиенты</h3>";}
+	?>	
 	<table class="table table-bordered">
 	<thead>
 	<tr>
@@ -85,11 +89,17 @@
 
 	<?php	
 
-	$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_team = :user_team AND user_leader = :user_leader");
-	$stm->execute(array(
-		'user_team' => $user_team_id,
-		'user_leader' => $user_id
-	));
+	if ($user_role == 'mgr'){
+		$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_team = :user_team AND user_leader = :user_leader");
+		$stm->execute(array(
+			'user_team' => $user_team_id,
+			'user_leader' => $user_id
+		));
+	} else if ($user_role == 'adm'){
+		$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_role != 'adm'");
+		$stm->execute();
+	}
+
 	$klients = $stm->fetchAll(PDO::FETCH_ASSOC);
 	
 	foreach ($klients AS $klient){
