@@ -6,13 +6,34 @@
 			</div>
 </div>
 
+<style>
+.one-block{	
+	padding-bottom: 1rem;
+}
+</style>
+
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
-		<h4>Общая статистика</h4>
-		<div id='all'></div>
-		<div id='adm'></div>
-		<div id='mgr'></div>
-		<div id='kln'></div>
+		<div class="row">
+			<div class="col-12 col-md-4 col-sm-12 one-block">
+				<h5>Пользователи</h5>
+				<div id='usr'></div>
+			</div>
+
+			<div class="col-12 col-md-4 col-sm-12 one-block">
+				<h5>Заказы</h5>
+				<div id='ord'></div>
+			</div>
+
+			<div class="col-12 col-md-4 col-sm-12 one-block">
+				<h5>Предложения</h5>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+
+		</div>
 	</div>
 </div>
 
