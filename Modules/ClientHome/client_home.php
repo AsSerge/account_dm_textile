@@ -2,7 +2,7 @@
 			<span style="margin-right: 10px"><i class="fas fa-drafting-compass" style="font-size: 2.5rem;"></i></span>
 			<div class="lh-100">
 				<h6 class="mb-0 text-white lh-100">Домашняя страница</h6>
-				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description." - ".$user_team_name."]";?></small>
+				<small><?php echo $user_id .">". $user_name." " .$user_surname. " [".$user_role_description." - ".$user_team_name."]";?></small>
 				
 			</div>
 </div>
@@ -280,9 +280,9 @@ function ost($pdo, $file_name){
 	<h3>Отправленные документы</h3>
 	<?php
 		// Получаем массив файлов, к которым есть доступ у пользователя НА ОТПРАВКУ
-		$stm = $pdo->prepare("SELECT file_name FROM orders WHERE 1 ORDER BY order_date DESC");
-		$stm->execute();
-		$ord = $stm->fetchAll(PDO::FETCH_COLUMN);		
+		$stm = $pdo->prepare("SELECT file_name FROM orders WHERE user_id = ? ORDER BY order_date DESC");
+		$stm->execute([$user_id]);
+		$ord = $stm->fetchAll(PDO::FETCH_COLUMN);
 
 		$u_dir = $_SERVER['DOCUMENT_ROOT'].'/uploaded_documents' . "/". $user_id;
 		
@@ -428,7 +428,6 @@ function ost($pdo, $file_name){
 				<div id="sendRevisionErrors" class="p-2 mb-1 bg-danger text-white"></div>
 				<div id="resultRev"></div>
 			</form>
-
 
 
 		</div>

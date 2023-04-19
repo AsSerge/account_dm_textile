@@ -1,36 +1,33 @@
 $(document).ready(function () {
 	"use strict";
 	var user_id = getCookie('id');
+	// Пользователи
 	$.ajax({
-		url: '/Modules/Dashboard/dashboard_all_statistic.php',		
+		url: '/Modules/Dashboard/dashboard_statistic.php',
 		type: 'post',
 		data: {
 			user_id: user_id,
-			option: 'all_statistic'
+			option: 'users_statistic'
 		},
 		success: function (data) {
 			var outputString = "";
-			outputString += "<div>Всего пользователей: " + writeStatistic(data, 'all') + "</div>";
-			outputString += "<div>Всего администраторов: " + writeStatistic(data, 'adm') + "</div>";
-			outputString += "<div>Всего менеджеров: " + writeStatistic(data, 'mgr') + "</div>";
-			outputString += "<div>Всего клиентов: " + writeStatistic(data, 'kln') + "</div>";
+			outputString += "<div>Всего пользователей: " + writeUsersStatistic(data, 'all') + "</div>";
+			outputString += "<div>Всего администраторов: " + writeUsersStatistic(data, 'adm') + "</div>";
+			outputString += "<div>Всего менеджеров: " + writeUsersStatistic(data, 'mgr') + "</div>";
+			outputString += "<div>Всего клиентов: " + writeUsersStatistic(data, 'kln') + "</div>";
 			$("#usr").html(outputString);
 		}
 	});
+	// Заказы
 	$.ajax({
-		url: '/Modules/Dashboard/dashboard_all_statistic.php',		
+		url: '/Modules/Dashboard/dashboard_statistic.php',
 		type: 'post',
 		data: {
 			user_id: user_id,
-			option: 'all_statistic'
+			option: 'orders_statistic'
 		},
 		success: function (data) {
-			var outputString = "";
-			outputString += "<div>Всего пользователей: " + writeStatistic(data, 'all') + "</div>";
-			outputString += "<div>Всего администраторов: " + writeStatistic(data, 'adm') + "</div>";
-			outputString += "<div>Всего менеджеров: " + writeStatistic(data, 'mgr') + "</div>";
-			outputString += "<div>Всего клиентов: " + writeStatistic(data, 'kln') + "</div>";
-			$("#usr").html(outputString);
+			$("#ord").html(data);
 		}
 	});
 
@@ -45,7 +42,7 @@ function getCookie(name) {
 }
 
 // Получение статистической информации по типам пользователей
-function writeStatistic(data, userType) { 
+function writeUsersStatistic(data, userType) { 
 	var log_arr = jQuery.parseJSON(data);  // Декодируем массив
 	var la = Object.entries(log_arr); // Преобразуем Объект в массив для перебора
 	

@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="col-12 col-md-4 col-sm-12 one-block">
-				<h5>Предложения</h5>
+				<h5>Группы</h5>
 				<div></div>
 				<div></div>
 				<div></div>
