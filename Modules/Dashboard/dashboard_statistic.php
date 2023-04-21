@@ -26,7 +26,7 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 				$arr[] = getMaxState($pdo, $ord['order_id']); // Заполняем массив
 			}
 			$arr_states = array_count_values($arr); // Считаем количество каждого ключа в списке
-			$return_string = "";
+			$return_string = "<table class='table table-sm pulse'>";
 			// Перебираем все заказы
 			foreach ($arr_states as $key => $value){
 				switch ($key){
@@ -39,10 +39,28 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 					case 6: $status_string = "Заказ на формировании"; break;
 					case 7: $status_string = "Заказ отменен"; break;
 				}
-				$return_string .=  "<div>" . $status_string . ": " . $value . "</div>";
+				$return_string .=  "<tr><td>" . $status_string . "</td><td>" . $value . "</td></tr>";
 			}
-			$return_string .=  "<div>Всего заказов: " . count($arr) . "</div>";
+			$return_string .=  "<tfoot><tr><td>Всего заказов:</td><td>" . count($arr) . "</td></tr></tfoot>";
+			$return_string .= "</table>";
+
+
 			echo $return_string;
+		}elseif($_POST['option'] == 'groups_statistic'){
+			$stm = $pdo->prepare("SELECT * FROM user_teams WHERE 1");
+			$stm->execute();
+			$teams = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$return_string = "<table class='table table-sm pulse'>"; 
+			foreach($teams as $t){
+				$t_name = $t['team_name'];
+				$t_mail1 = $t['team_mail_1'];
+				$t_mail2 = $t['team_mail_2'];
+				$user_team_count = getUsersInTeam($pdo, $t['team_id']);
+				$return_string .= "<tr><td>$t_name ($user_team_count)</td><td><a href='mailto:$t_mail1'>$t_mail1</a></td><td><a href='mailto:$t_mail2'>$t_mail2</a></td></tr>";
+			}
+			$return_string .= "</table>";
+			echo $return_string;
+
 		}
 	}
 }else{
@@ -55,6 +73,14 @@ function getMaxState($pdo, $order_id){
 	$stm->execute([$order_id]);
 	$order_state = $stm->fetch(PDO::FETCH_COLUMN);	
 	return $order_state;
+}
+
+// Функция получения количества пользователей в команде
+function getUsersInTeam($pdo, $user_team){
+	$stm = $pdo->prepare("SELECT COUNT(user_id) FROM users WHERE user_team = ? AND user_role = 'kln'");
+	$stm->execute([$user_team]);
+	$user_team_count = $stm->fetch(PDO::FETCH_COLUMN);
+	return $user_team_count;
 }
 
 ?>

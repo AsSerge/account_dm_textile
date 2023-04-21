@@ -27,11 +27,6 @@ echo "</table>";
 
 
 
-
-
-
-
-
 class getStatistic{
 	// Подключаем PDO
 	private $pdo;

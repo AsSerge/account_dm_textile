@@ -10,11 +10,15 @@ $(document).ready(function () {
 			option: 'users_statistic'
 		},
 		success: function (data) {
-			var outputString = "";
-			outputString += "<div>Всего пользователей: " + writeUsersStatistic(data, 'all') + "</div>";
-			outputString += "<div>Всего администраторов: " + writeUsersStatistic(data, 'adm') + "</div>";
-			outputString += "<div>Всего менеджеров: " + writeUsersStatistic(data, 'mgr') + "</div>";
-			outputString += "<div>Всего клиентов: " + writeUsersStatistic(data, 'kln') + "</div>";
+			var outputString = "<table class='table table-sm pulse'>";
+			
+			outputString += "<tr><td>Всего администраторов:</td><td>" + writeUsersStatistic(data, 'adm') + "</td></tr>";
+			outputString += "<tr><td>Всего менеджеров:</td><td>" + writeUsersStatistic(data, 'mgr') + "</td></tr>";
+			outputString += "<tr><td>Всего клиентов:</td><td>" + writeUsersStatistic(data, 'kln') + "</td></tr>";
+			outputString += "<tfoot><tr><td>Всего пользователей:</td><td>" + writeUsersStatistic(data, 'all') + "</td></tr></tfoot>";
+
+			outputString += "</table'>";
+
 			$("#usr").html(outputString);
 		}
 	});
@@ -30,6 +34,58 @@ $(document).ready(function () {
 			$("#ord").html(data);
 		}
 	});
+
+	// Группы
+	$.ajax({
+		url: '/Modules/Dashboard/dashboard_statistic.php',
+		type: 'post',
+		data: {
+			user_id: user_id,
+			option: 'groups_statistic'
+		},
+		success: function (data) {
+			$("#groups").html(data);
+		}
+	});
+
+	// Оформление таблицы заказов  DataTable
+
+	$('#ordersTable').DataTable({
+		responsive: true,
+		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Все"]],
+		paging: false,//Отключаем пангинацию
+		"bFilter": true,//Отключаем поиск
+		"info": false,//Отключаем инфо панели
+		"order": [[ 0, "desc" ]],
+		"aoColumnDefs": [
+			{
+				'bSortable': false, //запрещаем сортировку по всем столбцам
+				'aTargets': [1, 2, 3, 4, 5]
+			}
+		],
+		"columnDefs": [
+				{
+				"targets": [0, 1, 2, 3, 4, 5], //Номер столбца 15, 16, 17 столбец - временно включен
+				"visible": true //Видимость столбца
+				}
+			],
+		//Настройка языка
+		"language": {
+			"lengthMenu": "Показывать _MENU_ записей на странице",
+			"zeroRecords": "Извините - ничего не найдено",
+			"info": "Показано _PAGE_ страниц из _PAGES_",
+			"infoEmpty": "Нет подходящих записей",
+			"infoFiltered": "(Отфильтровано из _MAX_ записей)",
+			"sSearch": "Искать: ",
+			"oPaginate": {
+				"sFirst": "Первая",
+				"sLast": "Последняя",
+				"sNext": "Следующая",
+				"sPrevious": "Предыдущая"
+			}
+		}
+	});
+
 
 });
 
