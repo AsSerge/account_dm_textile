@@ -39,8 +39,9 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 					case 6: $status_string = "Заказ на формировании"; break;
 					case 7: $status_string = "Заказ отменен"; break;
 				}
-				$return_string .=  $status_string . ": " . $value . "<br>";
+				$return_string .=  "<div>" . $status_string . ": " . $value . "</div>";
 			}
+			$return_string .=  "<div>Всего заказов: " . count($arr) . "</div>";
 			echo $return_string;
 		}
 	}
