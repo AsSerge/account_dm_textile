@@ -49,11 +49,10 @@ $(document).ready(function () {
 	});
 
 	// Оформление таблицы заказов  DataTable
-
 	$('#ordersTable').DataTable({
-		responsive: true,
+		"responsive": true,
 		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Все"]],
-		paging: false,//Отключаем пангинацию
+		"paging": true,//Отключаем пангинацию
 		"bFilter": true,//Отключаем поиск
 		"info": false,//Отключаем инфо панели
 		"order": [[ 0, "desc" ]],

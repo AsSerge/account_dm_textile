@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
-			<span style="margin-right: 10px"><i class="fas fa-drafting-compass" style="font-size: 2.5rem;"></i></span>
+			<span style="margin-right: 10px"><i class="fas fa-window-restore" style="font-size: 2.5rem;"></i></span>
 			<div class="lh-100">
 				<h6 class="mb-0 text-white lh-100">Dashboard</h6>
 				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description." - ".$user_team_name."]";?></small>
@@ -10,21 +10,28 @@
 .one-block{	
 	padding-bottom: 1rem;
 }
+.dataTables_filter, .dataTables_length, .pagination{
+	font-size: 0.9rem;
+}
 </style>
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
 		<div class="row">
-			<div class="col-12 col-md-4 col-sm-12 one-block">
+			<div class="col-12 col-md-3 col-sm-12 one-block">
+				<h5>Часы</h5>
+				<div id='clock'></div>
+			</div>	
+			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Группы</h5>
 				<div id='groups'></div>
 			</div>			
-			<div class="col-12 col-md-4 col-sm-12 one-block">
+			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Пользователи</h5>
 				<div id='usr'></div>
 			</div>
 
-			<div class="col-12 col-md-4 col-sm-12 one-block">
+			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Заказы</h5>
 				<div id='ord'></div>
 			</div>
@@ -65,7 +72,7 @@
 				echo "<tbody>";
 				foreach($orders as $ord){
 					echo "<tr>";
-					echo "<td>". $ord['order_key'] . "_".$ord['order_type'] . "</td>";
+					echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],1,2,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],2,5,true) . "</td>";
@@ -172,4 +179,3 @@ function getAverageTime($arr){
 	}	
 }
 ?>
-

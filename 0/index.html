@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>VUE_JS_3</title>
+	<link rel="stylesheet" href="theme.css">
+	<style>
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container pt-3" id="app" v-cloak>
+		<div class="card center">
+			<h3>{{title}}</h3>
+			<div v-if="err">Не смогли загрузить данные</div>
+			<div class="form-control">
+
+				<button class="btn" :style="{color: 'darkblue', cursor: 'pointer'}"
+					@click="dataLoad('Data')">{{button1Title}}</button>
+
+				<button class="btn" :style="{color: 'darkblue', cursor: 'pointer'}"
+					@click="dataLoad('Contacts')">{{button2Title}}</button>
+
+			</div>
+
+			<table class="table" v-if="dataTable">
+				<tr v-for="(order, index) in resp" :key="index">
+					<td>{{order.order_id}}</td>
+					<td>{{order.order_key}}</td>
+					<td>{{order.order_type}}</td>
+				</tr>
+			</table>
+			<table class="table" v-if="contactTable">
+				<tr v-for="(contact, index) in resp" :key="index">
+					<td>{{contact.user_id}}</td>
+					<td>{{contact.user_login}}</td>
+					<td>{{contact.user_name}}</td>
+					<td>{{contact.user_surname}}</td>
+					<td>{{contact.user_hash}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+
+
+	<div class="container pt-3" id="appIII" v-cloak>
+		<div class="card center">
+			<input type="text" v-model="dateInput" @keyup="getCorrectDate">
+			<p>{{ formattedDate }}</p>
+		</div>
+	</div>
+
+
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+	<script src="app.js"></script>
+</body>
+
+</html>
