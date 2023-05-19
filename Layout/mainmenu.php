@@ -59,6 +59,24 @@
 			<?php } ?>
 
 
+			
+
+			<?php if($user_role == 'lgs'){?>
+			<li class="nav-item">
+				<a class="nav-link" href="/index.php?module=ClientHome">Заявки</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="/index.php?module=PublicDocs">Документы</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="/index.php?module=HelpDesk">Помощь</a>
+			</li>
+			<?php } ?>
+
+
+
 			<?php if($user_role == 'adm'){?>
 
 				<li class="nav-item dropdown">

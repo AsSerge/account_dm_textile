@@ -29,7 +29,10 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 			break;
 		case "kln":
 			$user_role_description = "Клиент";
-			break;		
+			break;
+		case "lgs":
+			$user_role_description = "Логист";
+			break;
 	}
 	
 	if(($userdata['user_hash'] !== $_COOKIE['hash']) and ($userdata['user_id'] !== $_COOKIE['id']))

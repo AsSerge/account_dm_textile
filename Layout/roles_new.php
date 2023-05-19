@@ -9,6 +9,7 @@ $role_arr = array();
 $role_arr['adm'] = ['UserList', 'UserRegistration', 'TaskList', 'CustomerList', 'TaskEdit', 'LibraryEdit', 'LibraryList', 'CreativeListView', 'Dashboard', 'HelpDesk', 'DocumentSetting', 'SendMessages', 'SendMailSending', 'PublicDocs'];
 $role_arr['mgr'] = ['ClientList', 'ClientRegistration', 'DocumentSetting', 'HelpDesk', 'SendMessages', 'SendMailSending', 'PublicDocs'];
 $role_arr['kln'] = ['HelpDesk', 'ClientHome', 'SendMessages', 'PublicDocs'];
+$role_arr['lgs'] = ['HelpDesk', 'LogisticianHome', 'PublicDocs'];
 
 
 // Состав модулей
@@ -38,6 +39,7 @@ $module_arr['ClientHome'] = ['/Modules/ClientHome/client_home.php', '/Modules/Cl
 $module_arr['SendMessages'] = ['/Modules/SendMessages/send_messages.php', '/Modules/SendMessages/send_messages.js'];
 $module_arr['SendMailSending'] = ['/Modules/SendMailSending/send_mail_sending.php', '/Modules/SendMailSending/send_mail_sending.js'];
 $module_arr['PublicDocs'] = ['/Modules/PublicDocs/public_docs.php', '/Modules/PublicDocs/public_docs.js'];
+$module_arr['LogisticianHome'] = ['/Modules/LogisticianHome/logistician_home.php', '/Modules/LogisticianHome/logistician_home.js'];
 
 
 
@@ -47,7 +49,7 @@ $def_arr = array();
 $def_arr['adm'] = ['/Modules/Dashboard/dashboard.php', '/Modules/Dashboard/dashboard.js'];
 $def_arr['mgr'] = ['/Modules/DocumentSetting/document_setting.php', '/Modules/DocumentSetting/document_setting.js'];
 $def_arr['kln'] = ['/Modules/ClientHome/client_home.php', '/Modules/ClientHome/client_home.js'];
-// $def_arr['kln'] = ['/Modules/Dashboard/dashboard.php', '/Modules/Dashboard/dashboard.js'];
+$def_arr['lgs'] = ['/Modules/LogisticianHome/logistician_home.php', '/Modules/LogisticianHome/logistician_home.js'];
 
 
 // Вывод разрешенных значений

@@ -34,6 +34,7 @@
 				<option value="adm">Администратор</option>
 				<option value="mgr">Менеджер</option>
 				<option value="kln">Клиент</option>
+				<option value="lgs">Логист</option>
 			</select>
 		</div>
 		<div class="form-group col-md-1 col-sm-12">

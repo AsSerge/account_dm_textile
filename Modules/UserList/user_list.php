@@ -33,6 +33,9 @@ $userdata = $query->fetchAll(PDO::FETCH_ASSOC);
 				case "kln":
 					$user_role = "Клиент";
 					break;
+				case "lgs":
+					$user_role = "Логист";
+					break;
 			}
 			$user_link = "<a href = '#' data-user-id='{$u['user_id']}' class='EditUser' data-toggle='modal' data-target='#EditUser' data-whatever='{$u['user_id']}'>{$u['user_name']} {$u['user_surname']}</a>";
 			echo "<tr>";
