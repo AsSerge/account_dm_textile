@@ -1,0 +1,120 @@
+html {
+	box-sizing: border-box;
+	font-size: 16px;
+	font-family: sans-serif;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.wrapper {
+	height: 100vh;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.message {
+	padding: 10px 30px;
+	cursor: pointer;
+}
+
+.info {
+	color: white;
+	background-color: #00aa09;
+}
+
+.danger {
+	color: black;
+	background-color: #f7c107;
+}
+
+.offer h3 {
+	text-align: center;
+	margin-bottom: 10px;
+}
+.send_offer_field {
+	margin: 20px;
+}
+.send_offer_button {
+	margin: 20px;
+	text-align: center;
+}
+.send_offer_button button {
+	margin: 5px;
+	padding: 8px;
+	border: none;
+	border-radius: 5px;
+}
+.res {
+	background-color: #f7c107;
+}
+.sub {
+	color: white;
+	background-color: #00aa09;
+	cursor: pointer;
+}
+.des {
+	color: white;
+	background-color: #888888;
+	cursor: auto;
+}
+
+.file_info,
+.message_info {
+	margin-top: 0.8rem;
+	text-align: center;
+	font-size: 0.8rem;
+}
+.avatar-field {
+	background-color: #ffffff;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	border: 1px solid #999;
+}
+.avatar-field img {
+	margin: 20px;
+}
+.avatar-field input {
+	display: none;
+}
+
+#message_body,
+#message_body_cancel {
+	width: 100%;
+	resize: none;
+	outline: none;
+	-moz-appearance: none;
+	border: 1px solid #999;
+}

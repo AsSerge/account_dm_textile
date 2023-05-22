@@ -20,7 +20,7 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 		$file = $_GET['file']; // Имя файла
 		$link_type = $_GET['link_type']; // Тип выдачи
 
-		if($link_type == "logist"){
+		if($link_type == "order"){
 
 			$stmu = $pdo->prepare("SELECT user_id FROM orders WHERE file_name = ?");
 			$stmu->execute([$file]);
@@ -29,6 +29,9 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 			$filePath = $_SERVER['DOCUMENT_ROOT'].'/uploaded_documents/'.$user_dir.'/'.$file; // Путь к файлам заказов и оферов
 			GetPrivateFile($filePath); // Запускаем функцию загрузки
 
+		}else if($link_type='offer'){
+			$filePath = $_SERVER['DOCUMENT_ROOT'].'/uploaded_documents/'.$_GET['user_id'].'/'.$file; // Путь к файлам заказов и оферов
+			GetPrivateFile($filePath); // Запускаем функцию загрузки
 		}
 	}
 }else{

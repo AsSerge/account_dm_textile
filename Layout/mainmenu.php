@@ -63,7 +63,7 @@
 
 			<?php if($user_role == 'lgs'){?>
 			<li class="nav-item">
-				<a class="nav-link" href="/index.php?module=ClientHome">Заявки</a>
+				<a class="nav-link" href="/index.php?module=LigisticianHome">Заявки</a>
 			</li>
 
 			<li class="nav-item">
