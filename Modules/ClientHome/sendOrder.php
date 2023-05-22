@@ -110,9 +110,10 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 
 		// Добавляем Статус	Ордера в базу Статусов (Первоначальный статус Ордера = 0 - Новый)
 			$lastInsertId = $pdo->lastInsertId(); // ID последней записи
-			$stm = $pdo->prepare("INSERT INTO orders_states SET order_id = :order_id, state_type = 0");
+			$stm = $pdo->prepare("INSERT INTO orders_states SET order_id = :order_id,  state_reason = :state_reason, state_type = 0");
 			$stm->execute([
-				'order_id' => $lastInsertId
+				'order_id' => $lastInsertId,
+				'state_reason' => $message_body
 			]);
 
 		include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php');	

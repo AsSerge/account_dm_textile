@@ -110,7 +110,7 @@ class ordersInfo{
 
 	// Получение истории заказа
 	public function orderHistory($order_id){
-		$stm = $this->pdo->prepare("SELECT state_type, state_date FROM orders_states WHERE order_id = :order_id");
+		$stm = $this->pdo->prepare("SELECT state_type, state_date, state_reason FROM orders_states WHERE order_id = :order_id");
 		$stm->execute([
 			'order_id' => $order_id
 		]);
@@ -128,8 +128,18 @@ class ordersInfo{
 					case 6: $status_string = "Заказ отправлен на формирование"; break;
 					case 7: $status_string = "Заказ отменен логистом"; break;
 				}	
-				$date_string = date('d.m.Y H:i', strtotime ($st['state_date']));
-				$info_string .= "<tr><td>{$status_string}</td><td>{$date_string}</td></tr>";
+				$date_string = date('d.m.Y H:i', strtotime ($st['state_date']));  // Дата установки статуса
+
+				$reason_string = $st['state_reason']; // Комментарий к статусу
+
+				$reason_string_lenght = strlen($reason_string); // Получаем длину комментария для вывод поповера над ячейкой
+
+				if($reason_string_lenght > 60){
+					$reason_string_sm = mb_strimwidth($reason_string, 0, 60, '...');
+					$reason_string = "<span tabindex='0' role='button' data-toggle='popover' data-placement='top' data-trigger='focus' data-content='{$reason_string}'>{$reason_string_sm}</span>";
+				}
+				
+				$info_string .= "<tr><td>{$status_string}</td><td>{$date_string}</td><td>{$reason_string}</td></tr>";
 			}
 			$info_string .= "</table>";
 

@@ -15,6 +15,7 @@ $(document).ready(function () {
 			outputString += "<tr><td>Всего администраторов:</td><td>" + writeUsersStatistic(data, 'adm') + "</td></tr>";
 			outputString += "<tr><td>Всего менеджеров:</td><td>" + writeUsersStatistic(data, 'mgr') + "</td></tr>";
 			outputString += "<tr><td>Всего клиентов:</td><td>" + writeUsersStatistic(data, 'kln') + "</td></tr>";
+			outputString += "<tr><td>Всего логистов:</td><td>" + writeUsersStatistic(data, 'lgs') + "</td></tr>";
 			outputString += "<tfoot><tr><td>Всего пользователей:</td><td>" + writeUsersStatistic(data, 'all') + "</td></tr></tfoot>";
 
 			outputString += "</table'>";
