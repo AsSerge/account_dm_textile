@@ -15,7 +15,7 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 
 	// Получаем  информацию об ордере по его хэшу
 	extract(order($pdo, $access_line), EXTR_PREFIX_SAME, "temp");  // Достаем переменные из массива
-	setOrderState($pdo, $order_id, "5"); // Пишем информацию в базу (стстус 5 - принятие предложения в первом рассмотреии)
+	setOrderState($pdo, $order_id, "5", ''); // Пишем информацию в базу (стстус 5 - принятие предложения в первом рассмотреии)
 	sendMailToLogist($team_manager_mail, $order_key, $order_type, $user_login, $user_name, $user_surname, $user_id, $access_line); // Отсылаем письмо менеджеру	
 
 }else{

@@ -30,7 +30,7 @@ if(!$_GET['ord']){
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Отправка первоначального предложения</h5>
+				<h5 class="modal-title"></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
@@ -95,14 +95,14 @@ class ordersInfo{
 		$order_state = $stmt->fetch(PDO::FETCH_COLUMN);
 
 		switch ($order_state){
-			case 0: $status_string = "Новый заказ"; break;
-			case 1: $status_string = "Заказ взят в работу"; break;
+			case 0: $status_string = "&#10004;&nbsp;Новый заказ"; break;
+			case 1: $status_string = "&#8987;&nbsp;Заказ взят в работу"; break;
 			case 2: $status_string = "Ожидаем реакции на предложение"; break;
 			case 3: $status_string = "Получен запрос на доработку"; break;
 			case 4: $status_string = "Ожидаем реакции на повторное предложение"; break;
 			case 5: $status_string = "Предложение одобрено клиентом"; break;
 			case 6: $status_string = "Заказ на формировании"; break;
-			case 7: $status_string = "Заказ отменен"; break;
+			case 7: $status_string = "&#9851;&nbsp;Заказ отменен"; break;
 		}
 		return $status_string;
 		
@@ -158,20 +158,21 @@ class ordersInfo{
 		
 		"<button type='button' id='btn0' class='btn btn-secondary btn-sm' data-hash='{$order_hash}'>Взять в работу</button>",
 		"<button type='button' id='btn1' class='btn btn-secondary btn-sm' data-toggle='modal' data-target='#SetFirstOffer' data-hash='{$order_hash}'>Отправить предложение</button>",
-		"<button type='button' id='btn2' class='btn btn-secondary btn-sm' data-hash='{$order_hash}'>Отправить повторное предложение</button>",
+		"<button type='button' id='btn2' class='btn btn-secondary btn-sm' data-toggle='modal' data-target='#SetFirstOffer' data-hash='{$order_hash}'>Отправить повторное предложение</button>",
 		"<button type='button' id='btn3' class='btn btn-secondary btn-sm' data-hash='{$order_hash}'>Отправить на формирование</button>",
 		"<button type='button' id='btn4' class='btn btn-danger btn-sm' data-hash='{$order_hash}'>Отменить заявку</button>",
+		"<button type='button' id='btn5' class='btn btn-info btn-sm' data-hash='{$order_hash}'>Вернуться</button>"
 		];
 
 		switch ($order_state){
-			case 0: $status_array = [1,0,0,0,1]; break;  // Получен новый заказ (можно взять в работу или сразу отменить)
-			case 1: $status_array = [0,1,0,0,0]; break;  // Заказ взять в работу (можно отправить предложение или отменить)
-			case 2: $status_array = [0,0,0,0,0]; break;  // Предложение отправлено (ждем реакции - нет кнопок)
-			case 3: $status_array = [0,0,1,0,1]; break;  // Получен запрос на доработку (можно отправить повторное предложение или отменить)
-			case 4: $status_array = [0,0,0,0,0]; break;  // Повторное педложение отправлено (ждем реакции - нет кнопок)
-			case 5: $status_array = [0,0,0,1,0]; break;  // Предложение одобрено клиентом (можем только отправить на формирование);
-			case 6: $status_array = [0,0,0,0,0]; break;  // Заказ на формировании 
-			case 7: $status_array = [0,0,0,0,0]; break;  // Заказ отменен (ну штож - нет кнопок)
+			case 0: $status_array = [1,0,0,0,1,1]; break;  // Получен новый заказ (можно взять в работу или сразу отменить)
+			case 1: $status_array = [0,1,0,0,0,1]; break;  // Заказ взять в работу (можно отправить предложение или отменить)
+			case 2: $status_array = [0,0,0,0,0,1]; break;  // Предложение отправлено (ждем реакции - нет кнопок)
+			case 3: $status_array = [0,0,1,0,1,1]; break;  // Получен запрос на доработку (можно отправить повторное предложение или отменить)
+			case 4: $status_array = [0,0,0,0,0,1]; break;  // Повторное педложение отправлено (ждем реакции - нет кнопок)
+			case 5: $status_array = [0,0,0,1,0,1]; break;  // Предложение одобрено клиентом (можем только отправить на формирование);
+			case 6: $status_array = [0,0,0,0,0,1]; break;  // Заказ на формировании 
+			case 7: $status_array = [0,0,0,0,0,1]; break;  // Заказ отменен (ну штож - нет кнопок)
 		}
 
 		if(array_sum($status_array)){
@@ -205,7 +206,7 @@ class ordersInfo{
 	}
 	
 	// Получение информации о дополнительных файлах (OFFER от логиста)
-	public function getOtherFileInfo($order_id){
+	public function getOtherFileInfo($order_id, $fileType){
 		$stmt = $this->pdo->prepare("SELECT user_id, order_key, order_type FROM orders WHERE order_id = ?");
 		$stmt->execute([$order_id]);
 		$targetFile = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -214,23 +215,49 @@ class ordersInfo{
 
 		$filePath = $_SERVER['DOCUMENT_ROOT'] . "/uploaded_documents/" . $targetFile['user_id'] . "/" . $targetFile['order_key'] . "_" . $targetFile['order_type'];
 
-		if(file_exists($filePath . "_OFFER_.xlsx")){
-			$offerFileName = $filePath . "_OFFER_.xlsx";
-			$offerFileNameShort = $targetFile['order_key'] . "_" . $targetFile['order_type'] . "_OFFER_.xlsx";
-		}else if (file_exists($filePath . "_OFFER_.xls")){
-			$offerFileName = $filePath . "_OFFER_.xls";
-			$offerFileNameShort = $targetFile['order_key'] . "_" . $targetFile['order_type'] . "_OFFER_.xls";
-		}else{
-			$offerFileName = '';
+		if ($fileType == 'OFFER'){
+
+			if(file_exists($filePath . "_OFFER_.xlsx")){
+				$offerFileName = $filePath . "_OFFER_.xlsx";
+				$offerFileNameShort = $targetFile['order_key'] . "_" . $targetFile['order_type'] . "_OFFER_.xlsx";
+			}else if (file_exists($filePath . "_OFFER_.xls")){
+				$offerFileName = $filePath . "_OFFER_.xls";
+				$offerFileNameShort = $targetFile['order_key'] . "_" . $targetFile['order_type'] . "_OFFER_.xls";
+			}else{
+				$offerFileName = '';
+			}
+
+			if ($offerFileName != ''){
+				$ar['fz'] = $this->human_filesize(filesize($offerFileName));
+				$ar['fn'] = $offerFileNameShort;
+				return $ar;
+			}else{
+				return $ar;
+			}
+
+		}
+		if ($fileType == 'REVISION'){
+
+			if(file_exists($filePath . "_REVISION_.xlsx")){
+				$offerFileName = $filePath . "_REVISION_.xlsx";
+				$offerFileNameShort = $targetFile['order_key'] . "_" . $targetFile['order_type'] . "_REVISION_.xlsx";
+			}else if (file_exists($filePath . "_REVISION_.xls")){
+				$offerFileName = $filePath . "_REVISION_.xls";
+				$offerFileNameShort = $targetFile['order_key'] . "_" . $targetFile['order_type'] . "_REVISION_.xls";
+			}else{
+				$offerFileName = '';
+			}
+
+			if ($offerFileName != ''){
+				$ar['fz'] = $this->human_filesize(filesize($offerFileName));
+				$ar['fn'] = $offerFileNameShort;
+				return $ar;
+			}else{
+				return $ar;
+			}
+				
 		}
 
-		if ($offerFileName != ''){
-			$ar['fz'] = $this->human_filesize(filesize($offerFileName));
-			$ar['fn'] = $offerFileNameShort;
-			return $ar;
-		}else{
-			return $ar;
-		}
 	}
 
 

@@ -29,8 +29,8 @@ if($order_id){
 
 		// Устанавливаем статус заказа: для нового предложения в 2, для повторного в 4. Внимение: статус повторного заказа может понижаться с 4 до 3
 		switch($state_type){
-			case 1: sendOfferToClientBase($pdo, $order_id, '2'); break;
-			case 3: sendOfferToClientBase($pdo, $order_id, '4'); break;
+			case 1: sendOfferToClientBase($pdo, $order_id, '2', $message_body); break;
+			case 3: sendOfferToClientBase($pdo, $order_id, '4', $message_body); break;
 		}
 
 		//**************************** Загрузка файла ПЕРВОГО ПРЕДЛОЖЕНИЯ ЛОГИСТ => КЛИЕНТ ****************************// 
@@ -94,13 +94,14 @@ if($order_id){
 // function getInfoButton($btnType, $btnMessage){
 // 	echo "<div class='message {$btnType}' onClick='window.close()';>{$btnMessage}</div>";
 // }
-// Функция добавления (обновления статуса ордера)
-function sendOfferToClientBase($pdo, $order_id, $state_type = '2'){
+// Функция добавления (обновления статуса ордера). Сюда добавляем запись сообщения от логиста к клиенту
+function sendOfferToClientBase($pdo, $order_id, $state_type = '2', $message_body){
 	// Добавляем информацию об операции в таблицу orders_states (первое предложение)
-	$stm = $pdo->prepare("INSERT INTO orders_states SET order_id = :order_id, state_type = :state_type");
+	$stm = $pdo->prepare("INSERT INTO orders_states SET order_id = :order_id, state_type = :state_type, state_reason = :state_reason");
 	$stm->execute([
 		'order_id' => $order_id,
-		'state_type' => $state_type
+		'state_type' => $state_type,
+		'state_reason' => $message_body
 	]);
 }
 // Функция очистки текстового поля

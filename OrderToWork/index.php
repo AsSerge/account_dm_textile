@@ -31,7 +31,7 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 		switch($state_type){
 			case 0:
 				// Добавляем информацию о новом заказа в базу
-				setOrderState($pdo, $order_id, "1");  // Пишем информацию в базу (статус 1)
+				setOrderState($pdo, $order_id, "1", "");  // Пишем информацию в базу (статус 1)
 				getInfobutton("info", "Документ взят в работу!");break;
 			case 1: getInfobutton("info", "Документ УЖЕ находится в работе!"); break;
 			case 2: getInfobutton("info", "Документ находится на рассмотрении клиентом!"); break;
@@ -78,7 +78,7 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 			case 3: //
 			case 4: getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;
 			case 5: 
-				setOrderState($pdo, $order_id, "6");
+				setOrderState($pdo, $order_id, "6", "");
 				sendMailToClientEnd($user_login, $order_key, $order_type, $team_manager_mail, $team_name); // Отправляем клиенту инормацию о начале работы с заказом
 				getInfobutton("info", "Заказ отправлен на формирование!"); break;
 			case 6:	getInfobutton("info", "Заказ в работе или на стадии формирования!"); break;

@@ -19,8 +19,7 @@ $('#btn0').on("click", function () {
 	},
 	dataType: 'html',
 		success: function () { 
-			location.reload(); // Перегружаем страницу
-			// console.log("Взяли в работу");
+			location.reload(); // Перегружаем страницу			
 		}
 	});
 	
@@ -31,6 +30,14 @@ $('#btn0').on("click", function () {
 $('#btn1').on("click", function () { 
 	var hash = $(this).data('hash');
 	console.log('Отправляем предложение ' + hash);
+	$('.modal-title').text('Отправляем предложение');
+});
+
+// Отправка предложения
+$('#btn2').on("click", function () { 
+	var hash = $(this).data('hash');
+	console.log('Отправляем повторное предложение ' + hash);
+	$('.modal-title').text('Отправляем повторное предложение');
 });
 
 
@@ -52,6 +59,13 @@ $('#btn3').on("click", function () {
 		}
 	});
 });
+
+// Возврат на предыдущую страницу
+$('#btn5').on("click", function () {
+	window.location.reload();
+	window.history.back();	
+});
+
 
 
 // Vanilla javascript

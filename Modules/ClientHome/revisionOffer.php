@@ -59,7 +59,7 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 	}
 
 	// Устанавливаем статус заказа	
-	setOrderState($pdo, $order_id, "3"); // Пишем информацию в базу (статус 3 - Запрос доработки)	
+	setOrderState($pdo, $order_id, "3", $message_body); // Пишем информацию в базу (статус 3 - Запрос доработки)	
 	
 	// Возвращаемся на страницу вызова
 	header("Location: /"); exit; // Возврат на страницу вызова

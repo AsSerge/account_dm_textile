@@ -18,7 +18,7 @@ if (count($ord) > 0){
 		echo "<td><a href='/index.php?module=LogisticianHome&ord=".$ord['order_hash']."'>". $ord['order_key']."_".$ord['order_type']."</a></td>";
 		echo "<td>". date('d.m.Y H:i', strtotime ($ord['order_date']))."</td>";
 		echo "<td>". $status->orderState($ord['order_id'])."</td>";
-		echo "<td>". $ord['user_name']." ".$ord['user_surname']."</td>";
+		echo "<td>". $ord['user_name']." ".$ord['user_surname']." [" . $ord['user_login']. "]</td>";
 		echo "<td>";
 		echo "<a href = '/Modules/LogisticianHome/action.php?file=".$ord['file_name']."&link_type=order'>" . $ord['file_name']. "</a>";
 		echo "</td>";

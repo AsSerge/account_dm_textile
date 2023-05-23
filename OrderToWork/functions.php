@@ -2,12 +2,13 @@
 // ФУНКЦИИ API
 include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
 // Функция установки статуса ордера
-function setOrderState($pdo, $order_id, $state_type){
+function setOrderState($pdo, $order_id, $state_type, $message_body){
 	// Добавляем информацию о статусе ордера в базу
-	$stm = $pdo->prepare("INSERT INTO orders_states SET state_type = :state_type, order_id = :order_id");
+	$stm = $pdo->prepare("INSERT INTO orders_states SET state_type = :state_type, order_id = :order_id, state_reason = :state_reason");
 	$stm->execute(array(
 		'order_id' => $order_id,
-		'state_type' => $state_type
+		'state_type' => $state_type,
+		'state_reason' => $message_body
 	));
 }
 // Функция получения расширенной информации по ордеру (Необходима для отправки почтового сообщения)

@@ -6,38 +6,7 @@
 			</div>
 </div>
 
-<style>
-.one-block{	
-	padding-bottom: 1rem;
-}
-.dataTables_filter, .dataTables_length, .pagination{
-	font-size: 0.9rem;
-}
-</style>
 
-<div class="my-3 p-3 bg-white rounded box-shadow">	
-	<div class='container-fluid'>
-		<div class="row">
-			<div class="col-12 col-md-3 col-sm-12 one-block">
-				<h5>Часы</h5>
-				<div id='clock'></div>
-			</div>	
-			<div class="col-12 col-md-3 col-sm-12 one-block">
-				<h5>Группы</h5>
-				<div id='groups'></div>
-			</div>			
-			<div class="col-12 col-md-3 col-sm-12 one-block">
-				<h5>Пользователи</h5>
-				<div id='usr'></div>
-			</div>
-
-			<div class="col-12 col-md-3 col-sm-12 one-block">
-				<h5>Заказы</h5>
-				<div id='ord'></div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <style>
 .pulse{
@@ -50,19 +19,39 @@
 	background-color: #DADADA;
 	font-weight: 600;	
 }
+
+.superTitle{
+	display: flex;
+	justify-content: space-between;
+	flex-flow: row nowrap;	
+}
 </style>
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
 		<div class="row">
 			<div class="col-12 col-md-12 col-sm-12 one-block">
-				<h5>Пульс системы</h5>
+				
 				<?php
+				$user_id_go = $_GET['user_id']; // Id пользователя, по которому надо сформировать таблицу
+
+				if($user_id_go != ''){
+					echo "<div class='superTitle'><h5>Пульс системы</h5><a href='/'><span class='badge badge-primary'>Показать всех</span></a></div>";
+				}else{
+					echo "<div class='superTitle'><h5>Пульс системы</h5></div>";
+				}
+
 				include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php");
 				$stat = new getStatistic($pdo);
 
-				$stm = $pdo->prepare("SELECT order_id, order_key, order_type FROM orders WHERE 1");
-				$stm->execute();
+ 				// Проверяем - нет ли задачи по получению информацтт об одном юзере
+				if ($user_id_go != ''){
+					$stm = $pdo->prepare("SELECT order_id, order_key, order_type FROM orders WHERE user_id =?");
+					$stm->execute([$user_id_go]);
+				}else{
+					$stm = $pdo->prepare("SELECT order_id, order_key, order_type FROM orders WHERE 1");
+					$stm->execute();
+				}				
 				$orders = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 				echo "<table class='table table-sm pulse' id='ordersTable'>";
@@ -106,6 +95,40 @@
 		</div>
 	</div>
 </div>
+
+<style>
+.one-block{	
+	padding-bottom: 1rem;
+}
+.dataTables_filter, .dataTables_length, .pagination{
+	font-size: 0.9rem;
+}
+</style>
+
+<div class="my-3 p-3 bg-white rounded box-shadow">	
+	<div class='container-fluid'>
+		<div class="row">
+			<div class="col-12 col-md-3 col-sm-12 one-block">
+				<h5>Часы</h5>
+				<div id='clock'></div>
+			</div>	
+			<div class="col-12 col-md-3 col-sm-12 one-block">
+				<h5>Группы</h5>
+				<div id='groups'></div>
+			</div>			
+			<div class="col-12 col-md-3 col-sm-12 one-block">
+				<h5>Пользователи</h5>
+				<div id='usr'></div>
+			</div>
+
+			<div class="col-12 col-md-3 col-sm-12 one-block">
+				<h5>Заказы</h5>
+				<div id='ord'></div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <?php
 class getStatistic{
@@ -158,11 +181,13 @@ class getStatistic{
 		return  $dif_string;
 	}
 	public function getUserInfo($order_id){
-		$stmt = $this->pdo->prepare("SELECT user_name, user_surname FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) WHERE ORD.order_id = ?");
+		// $stmt = $this->pdo->prepare("SELECT user_name, user_surname FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) WHERE ORD.order_id = ?");
+		$stmt = $this->pdo->prepare("SELECT US.user_id, user_name, user_surname, ut.team_name FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) LEFT JOIN user_teams AS UT ON (US.user_team = UT.team_id) WHERE ORD.order_id = ?");
+
 		$stmt->execute([$order_id]);
 		$u = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		$user_string = $u['user_name'] ."&nbsp" . $u['user_surname'];
+		$user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . " [" .$u['team_name'] . "]</a>";
 
 		return  $user_string;
 	}
@@ -177,7 +202,7 @@ function getAverageTime($arr){
 			$cnt++;
 		}
 	}
-	$seconds = array_sum($arr) / $cnt; // Подсчет среднего количества секунд 
+	$seconds = ($cnt) ? array_sum($arr) / $cnt : array_sum($arr); // Подсчет среднего количества секунд 
 	$dif_string =  "";
 	$dif_string .= (floor($seconds / (60 * 60 * 24))) ? floor($seconds / (60 * 60 * 24)) . " дн. " : "";
 	$dif_string .= (floor(($seconds / (60 * 60)) % 24)) ? floor(($seconds / (60 * 60)) % 24) . " ч. " : "";

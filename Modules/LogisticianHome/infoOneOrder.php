@@ -11,7 +11,7 @@ $status = new ordersInfo($pdo);  // Статус заказа (класс)
 
 echo "<div class='row'>";
 	echo "<div class='col-12 col-md-6 col-sm-12'>";
-	echo "<h4>Заявка ".$ord['order_key']."_".$ord['order_type']."</h4>";
+	echo "<h4 class='mb-4 mt-2'>Заявка ".$ord['order_key']."_".$ord['order_type']."</h4>";
 		echo "<table class='table table-sm fileslist' id='oneTable'>";
 		echo "<tbody>";
 		echo "<tr><td>Заказчик:</td><td>".$ord['user_name']." ".$ord['user_surname']."</td></tr>";
@@ -23,16 +23,28 @@ echo "<div class='row'>";
 		echo "</td>";
 		echo "</tr>";
 
-		if ($status->getOtherFileInfo($ord['order_id'])['fn'] != ''){
+		if ($status->getOtherFileInfo($ord['order_id'], "OFFER")['fn'] != ''){
 			echo "<tr>";
 			echo "<td>Скачать файл предложения:</td>";
 			echo "<td>";
-			echo "<a href = '/Modules/LogisticianHome/action.php?file=".$status->getOtherFileInfo($ord['order_id'])['fn']."&user_id=".$ord['user_id']."&link_type=offer'>";
-			echo $status->getOtherFileInfo($ord['order_id'])['fn']. " [" . $status->getOtherFileInfo($ord['order_id'])['fz']."]";
+			echo "<a href = '/Modules/LogisticianHome/action.php?file=".$status->getOtherFileInfo($ord['order_id'], "OFFER")['fn']."&user_id=".$ord['user_id']."&link_type=offer'>";
+			echo $status->getOtherFileInfo($ord['order_id'], "OFFER")['fn']. " [" . $status->getOtherFileInfo($ord['order_id'], "OFFER")['fz']."]";
 			echo "</a>";
 			echo "</td>";
 			echo "</tr>";
 		}
+
+		if ($status->getOtherFileInfo($ord['order_id'], "REVISION")['fn'] != ''){
+			echo "<tr>";
+			echo "<td>Скачать файл запроса доработки:</td>";
+			echo "<td>";
+			echo "<a href = '/Modules/LogisticianHome/action.php?file=".$status->getOtherFileInfo($ord['order_id'], "REVISION")['fn']."&user_id=".$ord['user_id']."&link_type=offer'>";
+			echo $status->getOtherFileInfo($ord['order_id'], "REVISION")['fn']. " [" . $status->getOtherFileInfo($ord['order_id'], "REVISION")['fz']."]";
+			echo "</a>";
+			echo "</td>";
+			echo "</tr>";
+		}		
+
 
 		echo "<tbody>";
 		echo "</table>";
@@ -40,12 +52,11 @@ echo "<div class='row'>";
 	echo "</div>";
 
 	echo "<div class='col-12 col-md-6 col-sm-12'>";
-	echo "<h4>История заявки</h4>";
+	echo "<h4 class='mb-4 mt-2'>История заявки</h4>";
 		echo $status->orderHistory($ord['order_id']);
 	echo "</div>";
 echo "</div>";
 
 echo "<hr>";
-echo "<a href='/index.php?module=LigisticianHome'>Вернуться в список заявок</a>";
 
 ?>

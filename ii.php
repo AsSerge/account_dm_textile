@@ -31,5 +31,23 @@ $seconds = array_sum($array) / count($array); // Подсчет среднего
 echo "Среднее: " . $seconds;
 
 
+$c = new order(1000);
+
+echo "<br>";
+echo $c->b;
+echo "<br>";
+echo $c->getORD(3);
+
+class order{
+	public function __construct($vvv) {
+		$this->vvv = $vvv;
+	}
+	public $b = 200;
+
+	public function getORD($a){
+		return ($a + $b) * $this->vvv;
+	}
+}
+
 
 ?>

@@ -12,7 +12,7 @@ $(document).ready(function () {
 		paging: false,//Отключаем пангинацию
 		"bFilter": false,//Отключаем поиск
 		"info": false,//Отключаем инфо панели
-		"order": [[ 4, "desc" ]],
+		"order": [[ 3, "desc" ]],
 		"aoColumnDefs": [
 			{
 				'bSortable': false, //запрещаем сортировку по всем столбцам
@@ -259,7 +259,7 @@ $('.acceptoffer').on("click", function () {
 			operation: 'accept'
 		},
 		success: function (data) { 
-			// console.log(data);
+			console.log(data);
 			location.reload(); // Перегружаем страницу
 		}
 	});
