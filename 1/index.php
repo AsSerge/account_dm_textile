@@ -32,6 +32,10 @@
 				<button type='submit' class='btn primary'>Получить картинку</button>
 			</div>
 
+			<div style='text-align: center; margin-top: 2rem'>
+				<a href="/1/image.png">Скачать текущую картинку</a>
+			</div>
+
 			</form>
 
 		</div>
