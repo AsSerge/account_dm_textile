@@ -24,7 +24,7 @@ if($order_id){
 	if($state_type == 0 || $state_type == 3){
 		// Закрываем заказ (присваиваем состояние 7)
 
-		sendOfferToClientBase($pdo, $order_id, '7');
+		sendOfferToClientBase($pdo, $order_id, '7', $message_body);  // Пишем в базу
 
 		//************************ Отправка письма ЛОГИСТ => КЛИЕНТ ****************************// 
 		// Формирование файла офера (предложения) для клиента
@@ -63,12 +63,13 @@ if($order_id){
 
 // ФУНКЦИИ API 
 // Функция добавления (обновления статуса ордера)
-function sendOfferToClientBase($pdo, $order_id, $state_type = '2'){
+function sendOfferToClientBase($pdo, $order_id, $state_type = '2', $message_body){
 	// Добавляем информацию об операции в таблицу orders_states (первое предложение)
-	$stm = $pdo->prepare("INSERT INTO orders_states SET order_id = :order_id, state_type = :state_type");
+	$stm = $pdo->prepare("INSERT INTO orders_states SET order_id = :order_id, state_type = :state_type, state_reason = :state_reason");
 	$stm->execute([
 		'order_id' => $order_id,
-		'state_type' => $state_type
+		'state_type' => $state_type,
+		'state_reason' => $message_body
 	]);
 }
 // Функция очистки текстового поля
