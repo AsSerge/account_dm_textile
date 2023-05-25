@@ -95,7 +95,8 @@
 
 					echo "<tr>";
 					echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
-					echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
+					// echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
+					echo "<td>TEST</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],1,2,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],2,5,true) . "</td>";
@@ -110,17 +111,17 @@
 					$arr5[] = $stat->getDifference($ord['order_id'],0,6,false);
 				}
 				echo "</tbody>";
-				// echo "<tfoot>";
-				// echo "<tr>";
-				// echo "<td>Среднее время обработки</td>";
-				// echo "<td></td>";
-				// echo "<td>" .getAverageTime($arr1). "</td>";
-				// echo "<td>" .getAverageTime($arr2). "</td>";
-				// echo "<td>" .getAverageTime($arr3). "</td>";
-				// echo "<td>" .getAverageTime($arr4). "</td>";
-				// echo "<td>" .getAverageTime($arr5). "</td>";
-				// echo "</tr>";
-				// echo "</tfoot>";
+				echo "<tfoot>";
+				echo "<tr>";
+				echo "<td>Среднее время обработки</td>";
+				echo "<td></td>";
+				echo "<td>" .getAverageTime($arr1). "</td>";
+				echo "<td>" .getAverageTime($arr2). "</td>";
+				echo "<td>" .getAverageTime($arr3). "</td>";
+				echo "<td>" .getAverageTime($arr4). "</td>";
+				echo "<td>" .getAverageTime($arr5). "</td>";
+				echo "</tr>";
+				echo "</tfoot>";
 				echo "</table>";
 				?>
 			</div>
