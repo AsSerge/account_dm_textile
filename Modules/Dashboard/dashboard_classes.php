@@ -49,15 +49,14 @@ class getStatistic{
 		return  $dif_string;
 	}
 	public function getUserInfo($order_id){
-		// $stmt = $this->pdo->prepare("SELECT user_name, user_surname FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) WHERE ORD.order_id = ?");
-		$stmt = $this->pdo->prepare("SELECT US.user_id, user_name, user_surname, ut.team_name FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) LEFT JOIN user_teams AS UT ON (US.user_team = UT.team_id) WHERE ORD.order_id = ?");
+		$stmt = $this->pdo->prepare("SELECT user_name, user_surname FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) WHERE ORD.order_id = ?");
+		// $stmt = $this->pdo->prepare("SELECT US.user_id, user_name, user_surname, ut.team_name FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) LEFT JOIN user_teams AS UT ON (US.user_team = UT.team_id) WHERE ORD.order_id = ?");
 
 		$stmt->execute([$order_id]);
 		$u = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		// $user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . " [" .$u['team_name'] . "]</a>";
+		$user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . " [" .$u['team_name'] . "]</a>";
 
-		$user_string = "TEST_TEST";
 		return  $user_string;
 	}
 
