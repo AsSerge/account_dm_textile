@@ -95,8 +95,7 @@
 
 					echo "<tr>";
 					echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
-					// echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
-					echo "<td>TEST</td>";
+					echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";					
 					echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],1,2,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],2,5,true) . "</td>";

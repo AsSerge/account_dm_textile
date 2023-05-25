@@ -55,8 +55,9 @@ class getStatistic{
 		$stmt->execute([$order_id]);
 		$u = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		$user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . " [" .$u['team_name'] . "]</a>";
+		// $user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . " [" .$u['team_name'] . "]</a>";
 
+		$user_string = "TEST_TEST";
 		return  $user_string;
 	}
 
