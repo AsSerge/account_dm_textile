@@ -5,6 +5,7 @@
 				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description."]";?></small>
 			</div>
 </div>
+
 <div class="col-md-12" id="HelpDeskContent">
 	
 </div>

@@ -78,24 +78,25 @@
 
  				// Проверяем - нет ли задачи по получению информацтт об одном юзере
 				if ($user_id_go != ''){
-					$stm = $pdo->prepare("SELECT order_id, order_key, order_type FROM orders WHERE user_id =?");
+					$stm = $pdo->prepare("SELECT order_id, order_key, order_type, order_date FROM orders WHERE user_id =?");
 					$stm->execute([$user_id_go]);
 				}else{
-					$stm = $pdo->prepare("SELECT order_id, order_key, order_type FROM orders WHERE 1");
+					$stm = $pdo->prepare("SELECT order_id, order_key, order_type, order_date FROM orders WHERE 1");
 					$stm->execute();
 				}
 				$orders = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 				echo "<table class='table table-sm pulse' id='ordersTable'>";
 				echo "<thead>";
-				echo "<tr><th>Заказ</th><th>Клиент</th><th>Заказ принят<br>в работу</th><th>Отправлено первое<br>предложение</th><th>Заказ одобрен<br>клиентом</th><th>Отправлен<br>на формирование</th><th>Заказ<br>общее время</th></tr>";
+				echo "<tr><th>Заказ</th><th>Открыт</th><th>Клиент</th><th>Заказ принят<br>в работу</th><th>Отправлено первое<br>предложение</th><th>Заказ одобрен<br>клиентом</th><th>Отправлен<br>на формирование</th><th>Заказ<br>общее время</th></tr>";
 				echo "</thead>";
 				echo "<tbody>";
 				foreach($orders as $ord){
 
 					echo "<tr>";
 					echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
-					echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";					
+					echo "<td>".date('d.m.Y H:i', strtotime ($ord['order_date']))."</td>";
+					echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],1,2,true) . "</td>";
 					echo "<td>" . $stat->getDifference($ord['order_id'],2,5,true) . "</td>";
@@ -113,6 +114,7 @@
 				echo "<tfoot>";
 				echo "<tr>";
 				echo "<td>Среднее время обработки</td>";
+				echo "<td></td>";
 				echo "<td></td>";
 				echo "<td>" .getAverageTime($arr1). "</td>";
 				echo "<td>" .getAverageTime($arr2). "</td>";
