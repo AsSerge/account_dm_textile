@@ -86,30 +86,30 @@
 				}
 				$orders = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-				// echo "<table class='table table-sm pulse' id='ordersTable'>";
-				// echo "<thead>";
-				// echo "<tr><th>Заказ</th><th>Клиент</th><th>Заказ принят<br>в работу</th><th>Отправлено первое<br>предложение</th><th>Заказ одобрен<br>клиентом</th><th>Отправлен<br>на формирование</th><th>Заказ<br>общее время</th></tr>";
-				// echo "</thead>";
-				// echo "<tbody>";
-				// foreach($orders as $ord){
+				echo "<table class='table table-sm pulse' id='ordersTable'>";
+				echo "<thead>";
+				echo "<tr><th>Заказ</th><th>Клиент</th><th>Заказ принят<br>в работу</th><th>Отправлено первое<br>предложение</th><th>Заказ одобрен<br>клиентом</th><th>Отправлен<br>на формирование</th><th>Заказ<br>общее время</th></tr>";
+				echo "</thead>";
+				echo "<tbody>";
+				foreach($orders as $ord){
 
-				// 	echo "<tr>";
-				// 	echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
-				// 	echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
-				// 	echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
-				// 	echo "<td>" . $stat->getDifference($ord['order_id'],1,2,true) . "</td>";
-				// 	echo "<td>" . $stat->getDifference($ord['order_id'],2,5,true) . "</td>";
-				// 	echo "<td>" . $stat->getDifference($ord['order_id'],5,6,true) . "</td>";
-				// 	echo "<td>" . $stat->getDifference($ord['order_id'],0,6,true) . "</td>";
-				// 	echo "</tr>";
+					echo "<tr>";
+					echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
+					echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
+					echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
+					echo "<td>" . $stat->getDifference($ord['order_id'],1,2,true) . "</td>";
+					echo "<td>" . $stat->getDifference($ord['order_id'],2,5,true) . "</td>";
+					echo "<td>" . $stat->getDifference($ord['order_id'],5,6,true) . "</td>";
+					echo "<td>" . $stat->getDifference($ord['order_id'],0,6,true) . "</td>";
+					echo "</tr>";
 
-				// 	$arr1[] = $stat->getDifference($ord['order_id'],0,1,false);
-				// 	$arr2[] = $stat->getDifference($ord['order_id'],1,2,false);
-				// 	$arr3[] = $stat->getDifference($ord['order_id'],2,5,false);
-				// 	$arr4[] = $stat->getDifference($ord['order_id'],5,6,false);
-				// 	$arr5[] = $stat->getDifference($ord['order_id'],0,6,false);
-				// }
-				// echo "</tbody>";
+					$arr1[] = $stat->getDifference($ord['order_id'],0,1,false);
+					$arr2[] = $stat->getDifference($ord['order_id'],1,2,false);
+					$arr3[] = $stat->getDifference($ord['order_id'],2,5,false);
+					$arr4[] = $stat->getDifference($ord['order_id'],5,6,false);
+					$arr5[] = $stat->getDifference($ord['order_id'],0,6,false);
+				}
+				echo "</tbody>";
 				// echo "<tfoot>";
 				// echo "<tr>";
 				// echo "<td>Среднее время обработки</td>";
@@ -121,7 +121,7 @@
 				// echo "<td>" .getAverageTime($arr5). "</td>";
 				// echo "</tr>";
 				// echo "</tfoot>";
-				// echo "</table>";
+				echo "</table>";
 				?>
 			</div>
 		</div>
