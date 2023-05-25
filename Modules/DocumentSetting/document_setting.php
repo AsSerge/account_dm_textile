@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
 			<span style="margin-right: 10px"><i class="fas fa-tasks" style="font-size: 2.5rem;"></i></span>
 			<div class="lh-100">
-				<h6 class="mb-0 text-white lh-100">Замена__Доступ к документам</h6>
+				<h6 class="mb-0 text-white lh-100">Доступ к документам</h6>
 				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description." - ".$user_team_name."]";?></small>
 			</div>
 </div>
