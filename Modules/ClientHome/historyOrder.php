@@ -9,13 +9,14 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 
 // Функция получения истории заказа
 function getOrderHistory($pdo, $order_id){
-	$stm = $pdo->prepare("SELECT state_type, state_date FROM orders_states WHERE order_id = :order_id");
+	$stm = $pdo->prepare("SELECT state_type, state_date, state_reason FROM orders_states WHERE order_id = :order_id");
 	$stm->execute([
 		'order_id' => $order_id
 	]);
 	$steps = $stm->fetchAll(PDO::FETCH_ASSOC);
 	$info_string = "";	
-		$info_string .= "<table>";
+		$info_string .= "<table class='table table-striped table-sm'>";
+		$info_string .= "<tr><th scope='col' width='40%'>Действие</th><th scope='col' width='20%'>Дата и время</th><th scope='col' >Комментарий</th></tr>";
 		foreach ($steps as $st){
 			switch ($st['state_type']){
 				case 0: $status_string = "Сформирован запрос"; break;
@@ -28,9 +29,10 @@ function getOrderHistory($pdo, $order_id){
 				case 7: $status_string = "Заказ отменен логистом"; break;
 			}	
 			$date_string = date('d.m.Y H:i', strtotime ($st['state_date']));
-			$info_string .= "<tr><td>{$status_string}</td><td>{$date_string}</td></tr>";
+			$state_reason = $st['state_reason'];
+			$info_string .= "<tr><td>{$status_string}</td><td>{$date_string}</td><td>{$state_reason}</td></tr>";
 		}
-		$info_string .= "</table>";
+		$info_string .= "</tr>";
 
 	return $info_string;
 }
