@@ -138,9 +138,12 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 		}
 		
 		$server_adress = ($_SERVER['HTTPS']) ? "https://". $_SERVER['SERVER_NAME'] : "http://". $_SERVER['SERVER_NAME']; // Задаем адрес сервера с протоколом
-		$message .= "\n\r<br>>> Взять в работу: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=taketowork'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=taketowork</a>";
-		$message .= "\n\r<br>>> Отправить предложение: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendfirstoffer'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendfirstoffer</a>";
-		$message .= "\n\r<br>>> Отменить зкакз: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder</a>";
+
+		$message .= "\n\r<br>Для просмотра заявок от клиентов необходимо перейти по <a href = '{$server_adress}'>адресу: {$server_adress}</a>";
+
+		// $message .= "\n\r<br>>> Взять в работу: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=taketowork'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=taketowork</a>";
+		// $message .= "\n\r<br>>> Отправить предложение: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendfirstoffer'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendfirstoffer</a>";
+		// $message .= "\n\r<br>>> Отменить зкакз: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder</a>";
 
 		$sender_mail = $user_login;
 		$sender_name = $user_name ." ". $user_surname ;

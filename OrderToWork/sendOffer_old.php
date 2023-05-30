@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Предложение отправлено</title>
+	<link rel="stylesheet" href="../css/styleOrders.css">	
+</head>
+<body>
+<div class="wrapper">
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php");
 include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
@@ -68,11 +79,7 @@ if($order_id){
 		
 		SendMailGRMPAttachment($mail, $subject, $message, $sender_mail, $sender_name, $target_file); // Отправляем почту с вложением
 
-		header("Location: /"); exit; // Возврат к списку заявок
-		// getInfoButton("info", "Предложение для клиента отправлено"); // Вывод текстовой информации
-
-		
-
+		getInfoButton("info", "Предложение для клиента отправлено");
 
 	}else if($state_type > 4 || $state_type <= 6 ){
 		getInfoButton("danger", "Предложение на рассмотрении клиентом. Или заказ на формировании");
@@ -108,3 +115,6 @@ function ClearMessageString($string){
 	return $string;
 }
 ?>
+</div>
+</body>
+</html>

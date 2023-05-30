@@ -5,7 +5,7 @@ $(document).ready(function () {
 	});
 });
 
-// Отправка предложения
+// Берем в работу
 $('#btn0').on("click", function () { 
 	var hash = $(this).data('hash');
 	console.log('Берем в работу ' + hash);
@@ -18,8 +18,9 @@ $('#btn0').on("click", function () {
 		operation: "taketowork"
 	},
 	dataType: 'html',
-		success: function () { 
-			location.reload(); // Перегружаем страницу			
+		success: function (data) { 
+			$('#systemMessage').html(data);
+			location.reload(); // Перегружаем страницу
 		}
 	});
 	

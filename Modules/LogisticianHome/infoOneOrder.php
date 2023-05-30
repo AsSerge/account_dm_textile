@@ -48,7 +48,8 @@ echo "<div class='row'>";
 
 		echo "<tbody>";
 		echo "</table>";
-		echo $status->printOrderButtons($ord['order_id'], $ord['order_hash']); 
+		echo $status->printOrderButtons($ord['order_id'], $ord['order_hash']);
+		echo "<div id='systemMessage'></div>";
 	echo "</div>";
 
 	echo "<div class='col-12 col-md-6 col-sm-12'>";

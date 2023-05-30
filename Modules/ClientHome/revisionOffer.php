@@ -46,8 +46,12 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash']))
 			$message .= "{$message_body}";
 	}
 	$server_adress = ($_SERVER['HTTPS']) ? "https://". $_SERVER['SERVER_NAME'] : "http://". $_SERVER['SERVER_NAME']; // Задаем адрес сервера с протоколом
-	$message .= "\n\r<br>>> Отправить новое предложение: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendnextoffer'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendnextoffer</a>";
-	$message .= "\n\r<br>>> Отменить зкакз: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder</a>";
+
+	$message .= "\n\r<br>Для просмотра заявок от клиентов и начала формирования заказа необходимо перейти по <a href = '{$server_adress}'>адресу: {$server_adress}</a>";
+
+	// $message .= "\n\r<br>>> Отправить новое предложение: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendnextoffer'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=sendnextoffer</a>";
+	// $message .= "\n\r<br>>> Отменить зкакз: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=cancelorder</a>";
+	
 	$sender_mail = $user_login; // Заказчик почта
 	$sender_name = $user_name . " " . $user_surname; // Заказчик ФИО
 	if($_FILES['upload_file_rev']['tmp_name']){

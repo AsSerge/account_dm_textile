@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Отмена заказа</title>
-	<link rel="stylesheet" href="../css/styleOrders.css">	
-</head>
-<body>
-<div class="wrapper">
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php");
 include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
@@ -51,7 +40,9 @@ if($order_id){
 		
 		SendMailGRMP($mail, $subject, $message, $sender_mail, $sender_name); // Отправляем почту с вложением
 
-		getInfoButton("info", "Заказ отменен");
+		header("Location: /"); exit; // Возврат к списку заявок
+
+		// getInfoButton("info", "Заказ отменен"); // Сообщение об отмене заказа
 
 	}else{
 		getInfoButton("danger", "Предложение на рассмотрении клиентом. Или заказ на формировании");
@@ -83,6 +74,3 @@ function ClearMessageString($string){
 	return $string;
 }
 ?>
-</div>
-</body>
-</html>

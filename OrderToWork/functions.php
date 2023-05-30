@@ -77,7 +77,11 @@ function sendMailToLogist($mail, $order_key, $order_type, $user_login, $user_nam
 	$message .= "\n\r";
 	$message .= "\n\r<br>". $user_name . " ". $user_surname;
 	$server_adress = ($_SERVER['HTTPS']) ? "https://". $_SERVER['SERVER_NAME'] : "http://". $_SERVER['SERVER_NAME']; // Задаем адрес сервера с протоколом
-	$message .= "\n\r<br>>> Начать формирование заказа: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=towork'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=towork</a>";	
+
+	$message .= "\n\r<br>Для просмотра заявок от клиентов и начала формирования заказа необходимо перейти по <a href = '{$server_adress}'>адресу: {$server_adress}</a>";
+
+	// $message .= "\n\r<br>>> Начать формирование заказа: <a href='{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=towork'>{$server_adress}/OrderToWork/?access_line={$access_line}&operator=mgr&operation=towork</a>";	
+
 	$sender_mail = $user_login; // Внимание!!!!!!! Отправитель - Общий адрес комманды клиента
 	$sender_name = $user_name . " " . $user_surname; // Внимание!!!!!!! Определить - кто является отправителем письма
 
@@ -96,7 +100,11 @@ function sendMailToClientEnd($mail, $order_key, $order_type, $team_manager_mail,
 	// $mail = $order['user_login']; // КЛИЕНТ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Заменить!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	$subject = $order_key ."_".$order_type."_ORDER_". "[ФОРМИРОВАНИЕ ЗАКАЗА]";
 	$message = "Добрый день!";
-	$message .= "\n\rЗаказ ".$order_key." отправлен на формирование";
+	$message .= "\n\rЗаказ ".$order_key." отправлен на формирование!!";
+
+	$server_adress = ($_SERVER['HTTPS']) ? "https://". $_SERVER['SERVER_NAME'] : "http://". $_SERVER['SERVER_NAME']; // Задаем адрес сервера с протоколом
+	$message .= "\n\r<br>Для просмотра Ваших заявок необходимо перейти по <a href = '{$server_adress}'>адресу: {$server_adress}</a>";
+
 	$sender_mail = $team_manager_mail; // Внимание!!!!!!! Отправитель - Общий адрес комманды клиента
 	$sender_name = $team_name; // Внимание!!!!!!! Определить - кто является отправителем письма
 	// ВСТАВИТЬ УДАЛЕНИЕ ФАЙЛА ЗАКАЗА и СООТВЕТСВУЮЩЕГО ЕМУ ФАЙЛА ПРЕДЛОЖЕНИЯ????????????????????????????????????????????????????????
@@ -104,7 +112,8 @@ function sendMailToClientEnd($mail, $order_key, $order_type, $team_manager_mail,
 }	
 // Функция получение информационной кнопки
 function getInfoButton($btnType, $btnMessage){
-	echo "<div class='message {$btnType}' onClick='window.close()';>{$btnMessage}</div>";
+	// echo "<div class='message {$btnType}' onClick='window.close()';>{$btnMessage}</div>";
+	echo $btnMessage;
 }
 
 // Функция формирования диалогового окна отправки оффера МЕНЕДЖЕР => КЛИЕНТ

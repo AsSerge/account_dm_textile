@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Отправка предложения клиенту от логиста</title>
+	<link rel="stylesheet" href="../css/styleOrders.css">
+</head>
+<body>
+<div class="wrapper">	
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php"); // Подключаем базу
 // include_once($_SERVER['DOCUMENT_ROOT'].'/Assets/PHPMailer/PHPMailerFunction.php'); // Почтальен Печкин
@@ -91,3 +102,7 @@ if(in_array($uIp, $allowIPArray) && $order_id){
 }
 
 ?>
+</div>
+<script src="/OrderToWork/ordertowork.js"></script>
+</body>
+</html>

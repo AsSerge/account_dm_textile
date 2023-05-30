@@ -245,7 +245,7 @@ $('.orderHistory').on("click", function () {
 
 
 
-// Кнопка ПРИНЯТЬ предложение
+// Кнопка Безусловно ПРИНЯТЬ предложение
 $('.acceptoffer').on("click", function () {	
 	var access_line = $(this).data('access-line');
 
