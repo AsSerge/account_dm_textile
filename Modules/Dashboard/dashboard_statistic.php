@@ -43,9 +43,9 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 			}
 			$return_string .=  "<tfoot><tr><td>Всего заказов:</td><td>" . count($arr) . "</td></tr></tfoot>";
 			$return_string .= "</table>";
-
-
 			echo $return_string;
+
+
 		}elseif($_POST['option'] == 'groups_statistic'){
 			$stm = $pdo->prepare("SELECT * FROM user_teams WHERE 1");
 			$stm->execute();
@@ -61,6 +61,31 @@ if (isset($_COOKIE['id']) and isset($_COOKIE['hash'])){
 			$return_string .= "</table>";
 			echo $return_string;
 
+
+		}elseif($_POST['option'] == 'clients_statistic'){
+			$stm = $pdo->prepare("SELECT user_id, user_login, user_name, user_surname, user_team, team_name FROM users AS US LEFT JOIN user_teams AS UST ON (US.user_team = UST.team_id) WHERE US.user_role = 'kln'");
+			$stm->execute();
+			$user = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$return_string = "<table class='table table-sm pulse'>";
+
+			$return_string .= "<thead><tr><th width='20%'>Клиент</th><th>Группа</th><th>Поступило заявок</th><th>Взят в работу</th><th>Отменено</th><th>Принято</th><th>Формируется</th></tr></thead>";
+
+			foreach($user as $usr){
+				$return_string .= "<tr>\n\r";
+
+				$return_string .= "<td>" . $usr['user_name'] . " ". $usr['user_surname'] . " [" . $usr['user_login'] . "]</td>";
+				$return_string .= "<td>" . $usr['team_name'] . "</td>";
+				$return_string .= "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '0') . "</td>";
+				$return_string .= "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '1') . "</td>";
+				$return_string .= "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '7') . "</td>";
+				$return_string .= "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '5') . "</td>";
+				$return_string .= "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '6') . "</td>";
+
+			$return_string .= "</tr>\n\r";
+			}
+
+			$return_string .= "</tr>";
+			echo $return_string;
 		}
 	}
 }else{
@@ -81,6 +106,21 @@ function getUsersInTeam($pdo, $user_team){
 	$stm->execute([$user_team]);
 	$user_team_count = $stm->fetch(PDO::FETCH_COLUMN);
 	return $user_team_count;
+}
+
+// Функция получения общего количества заказов у пользователя
+function getAllOrdersCount($pdo, $user_id, $state_type){
+	if ($state_type == '1'){
+		$stm = $pdo->prepare("SELECT COUNT(ORD.order_id) FROM orders AS ORD LEFT JOIN orders_states AS ORDST ON (ORD.order_id = ORDST.order_id) WHERE ORD.user_id = :user_id AND ORDST.state_type = :state_type");
+	}else{	
+		$stm = $pdo->prepare("SELECT COUNT(ORD.order_id) FROM orders AS ORD LEFT JOIN orders_states AS ORDST ON (ORD.order_id = ORDST.order_id) WHERE ORD.user_id = :user_id AND ORDST.state_type = :state_type");
+	}	
+	$stm->execute([
+		'user_id' => $user_id,
+		'state_type' => $state_type
+	]);
+	$orders_count = $stm->fetch(PDO::FETCH_COLUMN);	
+	return $orders_count;
 }
 
 ?>

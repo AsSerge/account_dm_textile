@@ -65,22 +65,28 @@ class getStatistic{
 // Считаем среднее время на выполнение операции
 function getAverageTime($arr){
 	$cnt = 0; // Считаем только не нулевые значения
-	foreach ($arr as $item){
-		if ($item !== 0){
-			$cnt++;
+	if(gettype($arr) == 'array'){	
+		foreach ($arr as $item){
+			if ($item !== 0){
+				$cnt++;
+			}
+		}
+		$seconds = ($cnt) ? array_sum($arr) / $cnt : array_sum($arr); // Подсчет среднего количества секунд 
+		$dif_string =  "";
+		$dif_string .= (floor($seconds / (60 * 60 * 24))) ? floor($seconds / (60 * 60 * 24)) . " дн. " : "";
+		$dif_string .= (floor(($seconds / (60 * 60)) % 24)) ? floor(($seconds / (60 * 60)) % 24) . " ч. " : "";
+		$dif_string .= (floor(($seconds / 60) % 60)) ?  floor(($seconds / 60) % 60) . " мин. " : "";
+		$dif_string .= ($seconds % 60) ?  $seconds % 60 . " сек. " : "";
+
+		if(array_sum($arr) > 0){
+			return $dif_string; // вывод результата
+		}else{
+			return '-';
 		}
 	}
-	$seconds = ($cnt) ? array_sum($arr) / $cnt : array_sum($arr); // Подсчет среднего количества секунд 
-	$dif_string =  "";
-	$dif_string .= (floor($seconds / (60 * 60 * 24))) ? floor($seconds / (60 * 60 * 24)) . " дн. " : "";
-	$dif_string .= (floor(($seconds / (60 * 60)) % 24)) ? floor(($seconds / (60 * 60)) % 24) . " ч. " : "";
-	$dif_string .= (floor(($seconds / 60) % 60)) ?  floor(($seconds / 60) % 60) . " мин. " : "";
-	$dif_string .= ($seconds % 60) ?  $seconds % 60 . " сек. " : "";
-
-	if(array_sum($arr) > 0){
-		return $dif_string; // вывод результата
-	}else{
+	else{
 		return '-';
 	}	
+
 }
 ?>

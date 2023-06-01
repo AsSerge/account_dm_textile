@@ -49,6 +49,21 @@ $(document).ready(function () {
 		}
 	});
 
+	// Статистика по заказам
+	$.ajax({
+		url: '/Modules/Dashboard/dashboard_statistic.php',
+		type: 'post',
+		data: {
+			user_id: user_id,
+			option: 'clients_statistic'
+		},
+		success: function (data) {
+			$("#clients_statistic").html(data);
+		}
+	});
+
+
+
 	// Оформление таблицы заказов  DataTable
 	$('#ordersTable').DataTable({
 		"responsive": true,

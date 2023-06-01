@@ -64,15 +64,16 @@ class ordersInfo{
 	}
 	// Получение списка кнопок для карточки заявки
 	public function printOrderButtons($order_id, $order_hash){
-		$stmt = $this->pdo->prepare("SELECT MAX(state_type) FROM orders_states WHERE order_id = ? ORDER BY state_date DESC");
+		// $stmt = $this->pdo->prepare("SELECT MAX(state_type) FROM orders_states WHERE order_id = ? ORDER BY state_date DESC");
+
+		// Здесь выбираем последний присвоенный статус отсортированнные по вермени его установки
+		$stmt = $this->pdo->prepare("SELECT state_type FROM orders_states WHERE order_id = ? ORDER BY state_date DESC LIMIT 1");
+		
 		$stmt->execute([$order_id]);
 		$order_state = $stmt->fetch(PDO::FETCH_COLUMN);
-
 		
 		$status_array = [];
-		$btn_array = [
-
-		
+		$btn_array = [		
 		"<button type='button' id='btn0' class='btn btn-secondary btn-sm' data-hash='{$order_hash}'>Взять в работу</button>",
 		"<button type='button' id='btn1' class='btn btn-secondary btn-sm' data-toggle='modal' data-target='#SetFirstOffer' data-hash='{$order_hash}'>Отправить предложение</button>",
 		"<button type='button' id='btn2' class='btn btn-secondary btn-sm' data-toggle='modal' data-target='#SetFirstOffer' data-hash='{$order_hash}'>Отправить повторное предложение</button>",
