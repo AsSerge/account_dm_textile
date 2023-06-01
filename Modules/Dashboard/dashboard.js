@@ -49,20 +49,6 @@ $(document).ready(function () {
 		}
 	});
 
-	// Статистика по заказам
-	$.ajax({
-		url: '/Modules/Dashboard/dashboard_statistic.php',
-		type: 'post',
-		data: {
-			user_id: user_id,
-			option: 'clients_statistic'
-		},
-		success: function (data) {
-			$("#clients_statistic").html(data);
-		}
-	});
-
-
 
 	// Оформление таблицы заказов  DataTable
 	$('#ordersTable').DataTable({
@@ -101,7 +87,42 @@ $(document).ready(function () {
 		}
 	});
 
-
+	// Оформляем статистику клиентов
+	$('#clientsTable').DataTable({
+		"responsive": true,
+		"lengthMenu": [[25, 50, -1], [25, 50, "Все"]],
+		"paging": false,//Отключаем пангинацию
+		"bFilter": false,//Отключаем поиск
+		"info": false,//Отключаем инфо панели
+		"order": [[ 2, "desc" ]],
+		"aoColumnDefs": [
+			{
+				'aTargets': [1, 2, 3, 4, 5],
+				'bSortable': false //запрещаем сортировку по всем столбцам
+			}
+		],
+		"columnDefs": [
+				{
+				"targets": [0, 1, 2, 3, 4, 5, 6, 7], //Номер столбца 15, 16, 17 столбец - временно включен
+				"visible": true //Видимость столбца
+				}
+			],
+		//Настройка языка
+		"language": {
+			"lengthMenu": "Показывать _MENU_ записей на странице",
+			"zeroRecords": "Извините - ничего не найдено",
+			"info": "Показано _PAGE_ страниц из _PAGES_",
+			"infoEmpty": "Нет подходящих записей",
+			"infoFiltered": "(Отфильтровано из _MAX_ записей)",
+			"sSearch": "Искать: ",
+			"oPaginate": {
+				"sFirst": "Первая",
+				"sLast": "Последняя",
+				"sNext": "Следующая",
+				"sPrevious": "Предыдущая"
+			}
+		}
+	});
 });
 
 

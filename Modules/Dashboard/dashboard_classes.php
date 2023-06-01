@@ -89,4 +89,14 @@ function getAverageTime($arr){
 	}	
 
 }
-?>
+
+// Функция получения общего количества заказов у пользователя
+function getAllOrdersCount($pdo, $user_id, $state_type){
+	$stm = $pdo->prepare("SELECT COUNT(ORD.order_id) FROM orders AS ORD LEFT JOIN orders_states AS ORDST ON (ORD.order_id = ORDST.order_id) WHERE ORD.user_id = :user_id AND ORDST.state_type = :state_type");
+	$stm->execute([
+		'user_id' => $user_id,
+		'state_type' => $state_type
+	]);
+	$orders_count = $stm->fetch(PDO::FETCH_COLUMN);	
+	return $orders_count;
+}

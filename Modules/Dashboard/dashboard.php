@@ -31,6 +31,12 @@
 	justify-content: space-between;
 	flex-flow: row nowrap;	
 }
+#clientsTable th:first-child{
+	width: 20%;
+}
+#clientsTable th:not(:first-child){
+	width: 8%;
+}
 </style>
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
@@ -63,9 +69,35 @@
 		<div class="row">
 			<div class="col-12 col-md-12 col-sm-12 one-block">
 				<h5>Статистика по клиентам</h5>
-				<div id='clients_statistic'></div>
-			</div>
+				<table class='table table-sm pulse' id='clientsTable'>
+					<?php
+					$headers = ['Клиент', 'Группа', 'Поступило заявок', 'Взят в работу', 'Отправлено первое предложение', 'Отменено', 'Принято', 'Формируется'];
+					echo "<thead><tr>";
+					foreach ($headers as $key => $h){
+						echo "<th>{$h}</th>";
+					}
+					echo "</tr>\n\r</thead>\n\r<tbody>\n\r";
+					$stm = $pdo->prepare("SELECT user_id, user_login, user_name, user_surname, user_team, team_name FROM users AS US LEFT JOIN user_teams AS UST ON (US.user_team = UST.team_id) WHERE US.user_role = 'kln'");
+						$stm->execute();
+						$user = $stm->fetchAll(PDO::FETCH_ASSOC);
+						foreach($user as $usr){
+							echo "<tr>";
+							echo "<td>" . $usr['user_name'] . " ". $usr['user_surname'] . " [" . $usr['user_login'] . "]</td>";
+							echo "<td>" . $usr['team_name'] . "</td>";
+							echo "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '0') . "</td>";
+							echo "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '1') . "</td>";
+							echo "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '2') . "</td>";
+							echo "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '7') . "</td>";
+							echo "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '5') . "</td>";
+							echo "<td>" . getAllOrdersCount($pdo, $usr['user_id'], '6') . "</td>";
 
+							echo"</tr>\n\r";
+						}
+					echo "</tbody>\n\r";	
+					?>					
+					<tfoot></tfoot>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
@@ -77,8 +109,6 @@
 			<div class="col-12 col-md-12 col-sm-12 one-block">
 				
 				<?php
-
-				
 					$user_id_go = $_GET['user_id']; // Id пользователя, по которому надо сформировать таблицу
 
 					if($user_id_go != ''){
@@ -87,7 +117,6 @@
 						echo "<div class='superTitle'><h5>Пульс системы</h5></div>";
 					}
 
-					include_once($_SERVER['DOCUMENT_ROOT']."/Login/classes/dbconnect.php");
 					$stat = new getStatistic($pdo);
 
 					// Проверяем - нет ли задачи по получению информацтт об одном юзере
@@ -143,4 +172,3 @@
 		</div>
 	</div>
 </div>
-
