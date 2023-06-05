@@ -86,6 +86,7 @@
 		<div class="row">
 			<div class="col-12 col-md-12 col-sm-12 one-block">
 				<h5>Статистика по клиентам</h5>
+				<p class='pulse'>В таблице представлена статистика по заявкам от клиентов</p>
 				<table class='table table-sm pulse' id='clientsTable'>
 					<?php
 					$headers = ['Клиент', 'Группа', 'Поступило заявок', 'Взят в работу', 'Отправлено первое предложение', 'Отменено', 'Принято', 'Формируется'];
@@ -135,7 +136,7 @@
 						echo "<div class='superTitle'><h5>Скорость реакции на заявку</h5></div>";
 					}
 
-					$stat = new getStatistic($pdo);
+					$stat = new getStatistic($pdo);  // Создаем объект класса для работы с статистикой
 
 					// Проверяем - нет ли задачи по получению информацти об одном юзере или об определенной команде
 					if ($user_id_go != ''){
@@ -156,7 +157,7 @@
 
 					echo "<table class='table table-sm pulse' id='ordersTable'>";
 					echo "<thead>";
-					echo "<tr><th>Заказ</th><th>Открыт</th><th>Клиент</th><th>Заказ принят<br>в работу</th><th>Отправлено первое<br>предложение</th><th>Заказ одобрен<br>клиентом</th><th>Отправлен<br>на формирование</th><th>Заказ<br>общее время</th></tr>";
+					echo "<tr><th>Заказ</th><th>Открыт</th><th>Клиент</th><th>Заказ принят<br>в работу</th><th>Отправлено первое<br>предложение</th><th>Заказ одобрен<br>клиентом</th><th>Заказ отправлен<br>на формирование</th><th>Заказ<br>общее время</th></tr>";
 					echo "</thead>";
 					echo "<tbody>";
 					foreach($orders as $ord){

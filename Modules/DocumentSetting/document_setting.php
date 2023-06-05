@@ -55,7 +55,7 @@
 
 	<?php
 	if ($user_role == 'mgr'){echo "<h3>Комманда {$user_team_name}</h3>";}
-	else if ($user_role == 'adm'){echo "<h3>Клиенты</h3>";}
+	else if ($user_role == 'adm'){echo "<h3>Клиенты (доступ к приватным документам)</h3>";}
 	?>	
 	<table class="table table-bordered">
 	<thead>
@@ -129,3 +129,97 @@
 <div class="table_info"><strong>Чт</strong> - Права на чтение (загрузку файла с сервера). <strong>Зп</strong> - Права на отправку заполненного файла</div>
 
 </div>
+
+
+<style>
+	.AvailableDocuments{
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+
+	a.bigbutton{
+		font-size: 0.8rem;
+		text-decoration: none;
+		color: #6F42C1;
+	}
+
+	a.smallbutton{
+		color: #6F42C1;
+		text-decoration: underline;
+	}
+	.onefile{
+		/* background-color: #dadada; */
+		/* border: 1px solid #6F42C1; */
+		border: 1px solid #DADADA;
+		border-radius: 5px;
+		box-shadow: 3px 3px 5px #dadada;
+		cursor: pointer;
+		text-align: center;
+		margin: 5px;
+		padding: 15px 3px;
+		width: 130px;
+
+	}
+	.onefile:HOVER{
+		box-shadow: 1px 1px 3px #dadada;
+	}
+	
+	.onefile img{
+		padding-bottom: 15px;
+	}
+	.fileage, .filesize{
+		font-size: 0.7rem;
+	}
+
+</style>	
+
+<div class="my-3 p-3 bg-white rounded box-shadow">	
+	<div class='container-fluid'>
+		<div class="row">
+			<h5>Загруженные документы (Бланки заказа)</h5>
+			<div class="col-12 col-md-12 col-sm-12 AvailableDocuments">
+				<?php
+				$stm = $pdo->prepare("SELECT * FROM files WHERE 1");
+				$stm->execute();
+				$documents = $stm->fetchAll(PDO::FETCH_ASSOC);
+				foreach($documents as $file){
+					// echo "<a href='/Modules/ClientHome/action.php?file={$file['file_name']}&link_type=bz' class='bigbutton'>";
+
+					echo "<a href='/Modules/DocumentSetting/document.php?file={$file['file_name']}' class='bigbutton'>";
+
+					echo "<div class='onefile' data-file = '{$file['file_name']}'>";
+					echo "<img src='/images/brand/excel.png'>";
+					echo "<div>{$file['file_description']}</div>";
+					echo "<div class='fileage'>".GetAge($file['file_name'])."</div>";
+					echo "<div class='filesize'>".human_filesize(GetFileSize($file['file_name']))."</div>";
+					echo "</div>";
+					echo "</a>";
+				}	
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php
+// Функция определения возраста файла
+function GetAge($file){		
+	$dir = $_SERVER['DOCUMENT_ROOT'].'/private_docs/';
+	return date("d.m.Y H:i", filemtime($dir.$file));
+}
+
+// Функуция получения размера файла
+function GetFileSize($file){
+	$dir = $_SERVER['DOCUMENT_ROOT'].'/private_docs/';
+	return filesize($dir.$file);
+}
+
+// Функция передставления размера файла в человеческом виде
+function human_filesize($bytes, $decimals = 2) {
+	$factor = floor((strlen($bytes) - 1) / 3);
+	if ($factor > 0) $sz = 'KMGT';
+	return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor - 1] . 'B';
+}
+
+?>

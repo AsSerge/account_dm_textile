@@ -46,16 +46,25 @@ class getStatistic{
 		$dif_string .= ($diff->i) ? $diff->i . " мин. " : "";
 		$dif_string .= ($diff->s) ? $diff->s . " сек. " : "";
 
+
+		// $dif_string .= ($diff->y) ? $diff->y . ":" : "";
+		// $dif_string .= ($diff->m) ? $diff->m . ":" : "";
+		// $dif_string .= ($diff->d) ? $diff->d . ":" : "";
+		// $dif_string .= ($diff->h) ? $diff->h . ":" : "";
+		// $dif_string .= ($diff->i) ? $diff->i . ":" : "";
+		// $dif_string .= ($diff->s) ? $diff->s . "" : "";
+
+
 		return  $dif_string;
 	}
-	public function getUserInfo($order_id){
-		// $stmt = $this->pdo->prepare("SELECT user_name, user_surname FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) WHERE ORD.order_id = ?");
+	// Функция выводаинформации о заказе
+	public function getUserInfo($order_id){		
 		$stmt = $this->pdo->prepare("SELECT US.user_id, user_name, user_surname, team_name, team_id FROM users AS US LEFT JOIN orders AS ORD ON (US.user_id = ORD.user_id) LEFT JOIN user_teams AS UT ON (US.user_team = UT.team_id) WHERE ORD.order_id = ?");
 
 		$stmt->execute([$order_id]);
 		$u = $stmt->fetch(PDO::FETCH_ASSOC);
 		
-		$user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . "</a> <a href='/?team_id=".$u['team_id']."'>[".$u['team_name']."]</a>";
+		$user_string = "<a href = '/?user_id=".$u['user_id']."'>".$u['user_name'] ."&nbsp" . $u['user_surname'] . "</a> <strong><a href='/?team_id=".$u['team_id']."'>[".$u['team_name']."]</a></strong>";
 
 		return  $user_string;
 	}

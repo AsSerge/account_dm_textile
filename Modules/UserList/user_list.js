@@ -70,7 +70,8 @@ $(document).ready(function () {
 				var titleModal = {
 					"adm": "администратора",
 					"mgr": "менеджера",
-					"kln": "клиента"
+					"kln": "клиента",
+					"lgs": "логиста"
 				}
 				modal.find('.modal-title').text("Редактор " + titleModal[res.user_role]);
 
@@ -121,7 +122,7 @@ $(document).ready(function () {
 					<select class="form-control mb-2" id="user_role" name="user_role" disabled>
 						${role_block}
 					</select>`;
-				if (res.user_role == "mgr" || res.user_role == "kln") {
+				if (res.user_role == "mgr" || res.user_role == "kln" || res.user_role == "lgs") {
 					userEditForm += `<label for="user_superior">Команда</label>
 					<select class="form-control mb-2" id="user_team" name="user_team">
 						${team_block}
