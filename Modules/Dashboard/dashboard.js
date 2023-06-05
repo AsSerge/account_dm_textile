@@ -155,7 +155,7 @@ $('.orderHistory').on("click", function (event) {
 	var order_id = $(this).data('state-id');  // Получаем id ордера для формировании истории
 	var order_name = $(this).data('order-name');  // Получаем имя ордера для формировании заголовка
 	$.ajax({
-		url: "/Modules/dashboard/historyOrder.php",
+		url: "/Modules/Dashboard/historyOrder.php",
 		type: "POST",
 		datatype: 'html',
 		data: {
