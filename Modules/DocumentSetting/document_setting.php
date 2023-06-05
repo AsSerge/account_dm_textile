@@ -171,6 +171,9 @@
 	.fileage, .filesize{
 		font-size: 0.7rem;
 	}
+	.delay{
+		color: red;
+	}
 
 </style>	
 
@@ -184,7 +187,6 @@
 				$stm->execute();
 				$documents = $stm->fetchAll(PDO::FETCH_ASSOC);
 				foreach($documents as $file){
-					// echo "<a href='/Modules/ClientHome/action.php?file={$file['file_name']}&link_type=bz' class='bigbutton'>";
 
 					echo "<a href='/Modules/DocumentSetting/document.php?file={$file['file_name']}' class='bigbutton'>";
 
@@ -193,6 +195,7 @@
 					echo "<div>{$file['file_description']}</div>";
 					echo "<div class='fileage'>".GetAge($file['file_name'])."</div>";
 					echo "<div class='filesize'>".human_filesize(GetFileSize($file['file_name']))."</div>";
+					echo "<div class='filesize delay'>".GetDelay($file['file_name'], 2)."</div>";
 					echo "</div>";
 					echo "</a>";
 				}	
@@ -208,6 +211,16 @@ function GetAge($file){
 	$dir = $_SERVER['DOCUMENT_ROOT'].'/private_docs/';
 	return date("d.m.Y H:i", filemtime($dir.$file));
 }
+
+// Функция получения задержки
+function GetDelay($file, $delay = 2){
+	$dir = $_SERVER['DOCUMENT_ROOT'].'/private_docs/';
+	$date_delay  = time() - date(filemtime($dir.$file));
+	if ($date_delay > 86400 * $delay){
+		return "> ". 24 * $delay . " часов";
+	}	
+}
+
 
 // Функуция получения размера файла
 function GetFileSize($file){
