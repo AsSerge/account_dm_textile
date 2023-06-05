@@ -148,3 +148,22 @@ function writeUsersStatistic(data, userType) {
 	}
 	return (userType == 'all') ? len : count;
 }
+
+// Получаем историю заказа для всплывающего окна
+$('.orderHistory').on("click", function (event) {
+	event.preventDefault();
+	var order_id = $(this).data('state-id');  // Получаем id ордера для формировании истории
+	var order_name = $(this).data('order-name');  // Получаем имя ордера для формировании заголовка
+	$.ajax({
+		url: "/Modules/dashboard/historyOrder.php",
+		type: "POST",
+		datatype: 'html',
+		data: {
+			order_id: order_id
+		},
+		success: function (data) { 
+			$("#ModalLabel").html("Заказ " + order_name);
+			$("#tableHistory").html(data);
+		}
+	});	
+});

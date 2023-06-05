@@ -137,7 +137,7 @@
 					foreach($orders as $ord){
 
 						echo "<tr>";
-						echo "<td><a href ='#' class='orderHistory'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
+						echo "<td><a href ='#' class='orderHistory' data-toggle='modal' data-order-name='".$ord['order_key']."_".$ord['order_type']."'data-target='#orderHistory' data-state-id='".$ord['order_id']."'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
 						echo "<td>".date('d.m.Y H:i', strtotime ($ord['order_date']))."</td>";
 						echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
 						echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
@@ -172,3 +172,25 @@
 		</div>
 	</div>
 </div>
+
+<!-- История заказа (всплывающее окно) -->
+<div class="modal fade" id="orderHistory" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="ModalLabel"></h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body" id="tableHistory"></div>
+
+		<div class="form-row">
+			<div class="col form-group" style = "text-align: center;">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Закрыть</button>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+

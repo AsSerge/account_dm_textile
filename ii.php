@@ -1,53 +1,23 @@
-<?php
-
-// Вычисление медианы
-
-function median($array) {
-    $count = count($array);
-    sort($array);
-    $middle = floor(($count - 1) / 2);
-    if ($count % 2) {
-        $median = $array[$middle];
-    } else {
-        $low = $array[$middle];
-        $high = $array[$middle + 1];
-        $median = (($low + $high) / 2);
-    }
-    return $median;
-}
-
-
-
-for ($i = 0; $i < 100000; $i++) {
-	$array[] = rand(1, 10000);
-}
-
-// $array = array(1,5,1,20);
-echo "Медиана: " . median($array); // Output: 5
-
-echo "<br>";
-
-$seconds = array_sum($array) / count($array); // Подсчет среднего количества секунд 
-echo "Среднее: " . $seconds;
-
-
-$c = new order(1000);
-
-echo "<br>";
-echo $c->b;
-echo "<br>";
-echo $c->getORD(3);
-
-class order{
-	public function __construct($vvv) {
-		$this->vvv = $vvv;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Ht</h1>
+	<p>eere</p>
+	<?php
+	
+	function arg ($word){
+		$d = preg_match_all("/\d{2,}/", $word, $matches);
+		return $matches;
 	}
-	public $b = 200;
 
-	public function getORD($a){
-		return ($a + $b) * $this->vvv;
-	}
-}
-
-
-?>
+	print_r(arg("Hello3423 3434 324gdf dgsdgdf"));
+	
+	?>
+</body>
+</html>
