@@ -103,7 +103,7 @@ function getAllOrdersCount($pdo, $user_id, $state_type){
 
 // Функция вывода клиентов-топов по поступившим заявкам
 function getTopClients($pdo, $state_type){
-	$stm = $pdo->prepare("SELECT ORD.user_id, US.user_name, US.user_surname, COUNT(order_key) FROM orders AS ORD LEFT JOIN users AS US ON (ORD.user_id = US.user_id) GROUP BY user_id DESC LIMIT 5");
+	$stm = $pdo->prepare("SELECT ORD.user_id, US.user_name, US.user_surname, COUNT(order_key) FROM orders AS ORD LEFT JOIN users AS US ON (ORD.user_id = US.user_id) GROUP BY user_id ASC LIMIT 5");
 	$stm->execute();
 	$topClients = $stm->fetchAll(PDO::FETCH_ASSOC);
 
