@@ -137,7 +137,8 @@
 					foreach($orders as $ord){
 
 						echo "<tr>";
-						echo "<td><a href ='#' class='orderHistory' data-toggle='modal' data-order-name='".$ord['order_key']."_".$ord['order_type']."'data-target='#orderHistory' data-state-id='".$ord['order_id']."'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
+						echo "<td><button type='button'class='orderHistory' data-toggle='modal' data-order-name='".$ord['order_key']."_".$ord['order_type']."'data-target='#orderHistory' data-state-id='".$ord['order_id']."'>". $ord['order_key'] . "_".$ord['order_type'] . "</button></td>";
+						// echo "<td><a href ='#' class='orderHistory' data-toggle='modal' data-order-name='".$ord['order_key']."_".$ord['order_type']."'data-target='#orderHistory' data-state-id='".$ord['order_id']."'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
 						echo "<td>".date('d.m.Y H:i', strtotime ($ord['order_date']))."</td>";
 						echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";
 						echo "<td>" . $stat->getDifference($ord['order_id'],0,1,true) . "</td>";
