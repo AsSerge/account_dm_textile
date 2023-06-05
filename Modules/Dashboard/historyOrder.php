@@ -61,7 +61,7 @@ function getOrderHistory($pdo, $order_id){
 		}	
 		$info_string .= "<div class='dropdn-file'>";
 		$info_string .= "<p class='pulse'><a href='/Modules/Dashboard/action.php?file={$order_file_name}&link_type=order'>Скачать файл запроса</a></p>";
-		$info_string .= ($offer_view) ? "<p class='pulse'><a href='/Modules/Dashboard/action.php?file={$offer_file_name}&user_id={$user_id}&link_type=offer'>Скачать файл текущего предложения</a></p>" : "";
+		$info_string .= ($offer_view) ? "<p class='pulse'><a href='/Modules/Dashboard/action.php?file={$offer_file_name}&user_id={$user_id}&link_type=offer'>Скачать файл текущего предложения</a></p>" : "<p class='pulse'>Фаил текущего предложения не найден</p>";
 		$info_string .= "</div>";
 
 	return $info_string;
