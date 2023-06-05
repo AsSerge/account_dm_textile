@@ -127,19 +127,27 @@
 				
 				<?php
 					$user_id_go = $_GET['user_id']; // Id пользователя, по которому надо сформировать таблицу
+					$team_id_go = $_GET['team_id']; // Id пользователя, по которому надо сформировать таблицу
 
-					if($user_id_go != ''){
-						echo "<div class='superTitle'><h5>Скорость реакции</h5><a href='/'><span class='badge badge-primary'>Показать всех</span></a></div>";
+					if($user_id_go != '' OR $team_id_go !=''){
+						echo "<div class='superTitle'><h5>Скорость реакции на заявку</h5><a href='/'><span class='badge badge-primary'>Показать всех</span></a></div>";
 					}else{
-						echo "<div class='superTitle'><h5>Скорость реакции</h5></div>";
+						echo "<div class='superTitle'><h5>Скорость реакции на заявку</h5></div>";
 					}
 
 					$stat = new getStatistic($pdo);
 
-					// Проверяем - нет ли задачи по получению информацтт об одном юзере
+					// Проверяем - нет ли задачи по получению информацти об одном юзере или об определенной команде
 					if ($user_id_go != ''){
+						
 						$stm = $pdo->prepare("SELECT order_id, order_key, order_type, order_date FROM orders WHERE user_id =?");
 						$stm->execute([$user_id_go]);
+
+					}else if($team_id_go !=''){
+
+						$stm = $pdo->prepare("SELECT order_id, order_key, order_type, order_date, US.user_team FROM orders AS ORD LEFT JOIN users AS US ON (ORD.user_id = US.user_id) WHERE US.user_team = ?");
+						$stm->execute([$team_id_go]);
+
 					}else{
 						$stm = $pdo->prepare("SELECT order_id, order_key, order_type, order_date FROM orders WHERE 1");
 						$stm->execute();
