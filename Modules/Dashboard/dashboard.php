@@ -2,7 +2,7 @@
 			<span style="margin-right: 10px"><i class="fas fa-window-restore" style="font-size: 2.5rem;"></i></span>
 			<div class="lh-100">
 				<h6 class="mb-0 text-white lh-100">Testing_Dashboard</h6>
-				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description." - ".$user_team_name."]";?></small>
+				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description."]";?></small>
 			</div>
 </div>
 
@@ -41,6 +41,17 @@
 	font-size: 0.8rem;
 	padding: 0.5rem 1rem;
 }
+.dropdn-file{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+}
+
+.dropdn-file a{
+	padding: 1rem;
+}
+
+
 </style>
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
@@ -49,17 +60,13 @@
 			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Лидеры по заявкам</h5>
 				<div id='leaders'>
-
-				<?php
-				echo getTopClients($pdo, '1');
-				?>
-
+				<?php echo getTopClients($pdo, '1');?>
 				</div>
 			</div>	
 			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Группы</h5>
 				<div id='groups'></div>
-			</div>			
+			</div>
 			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Пользователи</h5>
 				<div id='usr'></div>
@@ -103,8 +110,8 @@
 
 							echo"</tr>\n\r";
 						}
-					echo "</tbody>\n\r";	
-					?>					
+					echo "</tbody>\n\r";
+					?>
 					<tfoot></tfoot>
 				</table>
 			</div>
@@ -122,9 +129,9 @@
 					$user_id_go = $_GET['user_id']; // Id пользователя, по которому надо сформировать таблицу
 
 					if($user_id_go != ''){
-						echo "<div class='superTitle'><h5>Пульс системы</h5><a href='/'><span class='badge badge-primary'>Показать всех</span></a></div>";
+						echo "<div class='superTitle'><h5>Скорость реакции</h5><a href='/'><span class='badge badge-primary'>Показать всех</span></a></div>";
 					}else{
-						echo "<div class='superTitle'><h5>Пульс системы</h5></div>";
+						echo "<div class='superTitle'><h5>Скорость реакции</h5></div>";
 					}
 
 					$stat = new getStatistic($pdo);
@@ -203,4 +210,3 @@
 	</div>
 	</div>
 </div>
-
