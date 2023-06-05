@@ -15,7 +15,7 @@ function getOrderHistory($pdo, $order_id){
 	]);
 	$steps = $stm->fetchAll(PDO::FETCH_ASSOC);
 	$info_string = "";	
-		$info_string .= "<table class='table table-striped table-sm'>";
+		$info_string .= "<table class='table table-striped table-sm' id='tableHistory'>";
 		$info_string .= "<tr><th scope='col' width='40%'>Действие</th><th scope='col' width='20%'>Дата и время</th><th scope='col' >Комментарий</th></tr>";
 		foreach ($steps as $st){
 			switch ($st['state_type']){

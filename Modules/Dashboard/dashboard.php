@@ -37,14 +37,24 @@
 #clientsTable th:not(:first-child){
 	width: 8%;
 }
+#tableHistory td{
+	font-size: 0.8rem;
+	padding: 0.5rem 1rem;
+}
 </style>
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
 		<div class="row">
 			<div class="col-12 col-md-3 col-sm-12 one-block">
-				<h5>Часы</h5>
-				<div id='clock'></div>
+				<h5>Лидеры по заявкам</h5>
+				<div id='leaders'>
+
+				<?php
+				echo getTopClients($pdo, '1');
+				?>
+
+				</div>
 			</div>	
 			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Группы</h5>
@@ -136,7 +146,7 @@
 					echo "<tbody>";
 					foreach($orders as $ord){
 
-						echo "<tr>";						
+						echo "<tr>";
 						echo "<td><a href ='#' class='orderHistory' data-toggle='modal' data-order-name='".$ord['order_key']."_".$ord['order_type']."'data-target='#orderHistory' data-state-id='".$ord['order_id']."'>". $ord['order_key'] . "_".$ord['order_type'] . "</a></td>";
 						echo "<td>".date('d.m.Y H:i', strtotime ($ord['order_date']))."</td>";
 						echo "<td>" . $stat->getUserInfo($ord['order_id']) . "</td>";

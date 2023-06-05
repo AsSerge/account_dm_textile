@@ -49,6 +49,19 @@ $(document).ready(function () {
 		}
 	});
 
+	// Лидеры
+	// $.ajax({
+	// 	url: '/Modules/Dashboard/dashboard_statistic.php',
+	// 	type: 'post',
+	// 	data: {
+	// 		user_id: user_id,
+	// 		option: 'groups_statistic'
+	// 	},
+	// 	success: function (data) {
+	// 		$("#groups").html(data);
+	// 	}
+	// });
+
 
 	// Оформление таблицы заказов  DataTable
 	$('#ordersTable').DataTable({
