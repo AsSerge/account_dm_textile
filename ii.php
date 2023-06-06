@@ -7,17 +7,48 @@
 	<title>Document</title>
 </head>
 <body>
-	<h1>Ht</h1>
-	<p>eere</p>
+	<h1>Задержка в загрузке</h1>
 	<?php
-	
-	function arg ($word){
-		$d = preg_match_all("/\d{2,}/", $word, $matches);
-		return $matches;
+	$file = "test.xlsx";
+
+	echo GetAge($file) . " " . GetAgeUNIX($file);
+	echo "<br>";
+	echo time();
+	echo "<br>";
+	echo "Возраст файла " . GetAgeUNIXDiff($file, 24);
+
+
+	function GetAge($file){
+	$dir = $_SERVER['DOCUMENT_ROOT'].'/';
+	return date("d.m.Y H:i", filemtime($dir.$file));	
 	}
 
-	print_r(arg("Hello3423 3434 324gdf dgsdgdf"));
-	
+	function GetAgeUNIX($file){
+	$dir = $_SERVER['DOCUMENT_ROOT'].'/';
+	return filemtime($dir.$file);	
+	}
+
+	function GetAgeUNIXDiff($file, $h){
+		$dir = $_SERVER['DOCUMENT_ROOT'].'/';
+		$fileAge = time() - filemtime($dir.$file);
+
+		$years = floor($fileAge / 31536000);
+		$fileAge %= 31536000;
+
+		$days = floor($fileAge / 86400);
+		$fileAge %= 86400;
+
+		$hours = floor($fileAge / 3600);
+		$fileAge %= 3600;
+
+		$minutes = floor($fileAge / 60);
+		$fileAge %= 60;
+
+		if($hours > $h){
+			return "> 48 часов";
+		}
+	}
 	?>
+
 </body>
 </html>

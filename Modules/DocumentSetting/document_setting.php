@@ -195,7 +195,7 @@
 					echo "<div>{$file['file_description']}</div>";
 					echo "<div class='fileage'>".GetAge($file['file_name'])."</div>";
 					echo "<div class='filesize'>".human_filesize(GetFileSize($file['file_name']))."</div>";
-					echo "<div class='filesize delay'>".GetDelay($file['file_name'], 2)."</div>";
+					echo "<div class='filesize delay'>".GetDelay($file['file_name'], 48)."</div>";
 					echo "</div>";
 					echo "</a>";
 				}	
@@ -212,15 +212,28 @@ function GetAge($file){
 	return date("d.m.Y H:i", filemtime($dir.$file));
 }
 
-// Функция получения задержки
-function GetDelay($file, $delay = 2){
-	$dir = $_SERVER['DOCUMENT_ROOT'].'/private_docs/';
-	$date_delay  = time() - date(filemtime($dir.$file));
-	if ($date_delay > 86400 * $delay){
-		return "> ". 24 * $delay . " часов";
-	}	
-}
 
+// Функция получения задержки подгрузки документа с сервера
+function GetDelay($file, $delay = 48){
+	$dir = $_SERVER['DOCUMENT_ROOT'].'/private_docs/';
+	$fileAge = time() - filemtime($dir.$file);
+
+	$years = floor($fileAge / 31536000);
+	$fileAge %= 31536000;
+
+	$days = floor($fileAge / 86400);
+	$fileAge %= 86400;
+
+	$hours = floor($fileAge / 3600);
+	$fileAge %= 3600;
+
+	$minutes = floor($fileAge / 60);
+	$fileAge %= 60;
+	// Если прошло более двух дней
+	if($hours > $delay OR $days > 2){
+		return "> 48 часов";
+	}
+}
 
 // Функуция получения размера файла
 function GetFileSize($file){
