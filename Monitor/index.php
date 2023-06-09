@@ -7,7 +7,7 @@
 	<title>Счетчик</title>
 </head>
 <body>
-	<h1>Тестируем</h1>
+	<h1>Тестируем SSE</h1>
 	<div id="one"></div>
 
 <script src = "/js/jquery-3.6.0.min.js"></script>
@@ -17,7 +17,7 @@
 <script>
 
 $(document).ready(function () {	
-	var source = new EventSource("https://account.dmtextile.ru/Monitor/monitor.php?id=8");
+	var source = new EventSource("/Monitor/monitor.php?id=8");
 	source.onmessage = function(event){
 		console.log(event.data);
 		$("#one").text("Новое число: " + event.data);

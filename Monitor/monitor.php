@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: text/event-stream");
 header("Cache-Control: no-cache");
-header('Connection: keep-alive');
+header('Connection: keep-alive\n\n');
 
 $id = $_GET['id'];
 
@@ -11,7 +11,7 @@ while (true) {
 	if($data >= 50){	
 		echo "data: {$id} - {$data}\n\n";
 	}else{
-		echo "data: {$id} - {$data} - Маловато будет\n\n";
+		echo "data: {$id} - {$data} - NO\n\n";
 	}
 	ob_flush();
 	flush();
