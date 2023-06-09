@@ -18,9 +18,14 @@
 
 $(document).ready(function () {	
 	var source = new EventSource("/Monitor/monitor.php?id=8");
-	source.onmessage = function(event){
-		console.log(event.data);
-		$("#one").text("Новое число: " + event.data);
+	if(typeof(EventSource) !== "undefined"){
+		source.onmessage = function(event){
+			console.log(event.data);
+			$("#one").text("Новое число: " + event.data);
+		}
+	}else{
+		console.log('Sorry! No server-sent events support..');
+		
 	}
 });
 </script>
