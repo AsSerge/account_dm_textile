@@ -17,7 +17,7 @@
 <script>
 
 $(document).ready(function () {	
-	var source = new EventSource("/Monitor/monitor.php?id=8");
+	var source = new EventSource("https://account.dmtextile.ru/Monitor/monitor.php?id=8");
 	source.onmessage = function(event){
 		console.log(event.data);
 		$("#one").text("Новое число: " + event.data);
