@@ -1,11 +1,6 @@
 $(document).ready(function () {
 	"use strict";
 
-	var source = new EventSource("/Monitor/monitor.php");
-	source.onmessage = function(event){
-		$("#one").text("Новое число: " + event.data);
-	}
-
 	var user_id = getCookie('id');
 	// Пользователи
 	$.ajax({

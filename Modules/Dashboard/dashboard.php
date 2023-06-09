@@ -54,16 +54,6 @@
 
 </style>
 
-<div class="my-3 p-3 bg-white rounded box-shadow">	
-	<div class='container-fluid'>
-		<div class="row">
-			<div id="one">
-
-			</div>
-		</div>
-	</div>
-</div>	
-
 
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
