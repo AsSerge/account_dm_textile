@@ -57,6 +57,17 @@
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
 		<div class="row">
+			<div id="one">
+
+			</div>
+		</div>
+	</div>
+</div>	
+
+
+<div class="my-3 p-3 bg-white rounded box-shadow">	
+	<div class='container-fluid'>
+		<div class="row">
 			<div class="col-12 col-md-3 col-sm-12 one-block">
 				<h5>Лидеры по заявкам</h5>
 				<div id='leaders'>

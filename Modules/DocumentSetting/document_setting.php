@@ -2,7 +2,7 @@
 			<span style="margin-right: 10px"><i class="fas fa-tasks" style="font-size: 2.5rem;"></i></span>
 			<div class="lh-100">
 				<h6 class="mb-0 text-white lh-100">Доступ к документам</h6>
-				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description." - ".$user_team_name."]";?></small>
+				<small><?php echo $user_name." " .$user_surname. " [".$user_role_description."]";?></small>
 			</div>
 </div>
 <style>
@@ -90,13 +90,13 @@
 	<?php	
 
 	if ($user_role == 'mgr'){
-		$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_team = :user_team AND user_leader = :user_leader");
+		$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_role != 'lgs' AND user_team = :user_team AND user_leader = :user_leader");
 		$stm->execute(array(
 			'user_team' => $user_team_id,
 			'user_leader' => $user_id
 		));
 	} else if ($user_role == 'adm'){
-		$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_role != 'adm'");
+		$stm = $pdo->prepare("SELECT * FROM users WHERE user_role != 'mgr' AND user_role != 'adm'  AND user_role != 'lgs'");
 		$stm->execute();
 	}
 
