@@ -6,7 +6,7 @@ $module = $_GET['module'];
 
 // Разрешения
 $role_arr = array();
-$role_arr['adm'] = ['UserList', 'UserRegistration', 'TaskList', 'CustomerList', 'TaskEdit', 'LibraryEdit', 'LibraryList', 'CreativeListView', 'Dashboard', 'HelpDesk', 'DocumentSetting', 'SendMessages', 'SendMailSending', 'PublicDocs'];
+$role_arr['adm'] = ['UserList', 'UserRegistration', 'TaskList', 'CustomerList', 'TaskEdit', 'LibraryEdit', 'LibraryList', 'CreativeListView', 'Dashboard', 'HelpDesk', 'DocumentSetting', 'SendMessages', 'SendMailSending', 'PublicDocs', 'UserTeamEditor'];
 $role_arr['mgr'] = ['ClientList', 'ClientRegistration', 'DocumentSetting', 'HelpDesk', 'SendMessages', 'SendMailSending', 'PublicDocs'];
 $role_arr['kln'] = ['HelpDesk', 'ClientHome', 'SendMessages', 'PublicDocs'];
 $role_arr['lgs'] = ['HelpDesk', 'LogisticianHome', 'PublicDocs'];
@@ -40,6 +40,7 @@ $module_arr['SendMessages'] = ['/Modules/SendMessages/send_messages.php', '/Modu
 $module_arr['SendMailSending'] = ['/Modules/SendMailSending/send_mail_sending.php', '/Modules/SendMailSending/send_mail_sending.js'];
 $module_arr['PublicDocs'] = ['/Modules/PublicDocs/public_docs.php', '/Modules/PublicDocs/public_docs.js'];
 $module_arr['LogisticianHome'] = ['/Modules/LogisticianHome/logistician_home.php', '/Modules/LogisticianHome/logistician_home.js'];
+$module_arr['UserTeamEditor'] = ['/Modules/UserTeamEditor/user_team_editor.php', '/Modules/UserTeamEditor/user_team_editor.js'];
 
 
 
