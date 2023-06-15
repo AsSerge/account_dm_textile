@@ -64,8 +64,8 @@
 					<tfoot></tfoot>
 					</table>
 					<div style="text-align: center;">
-						<hr>						
-						<button type="button" class="btn btn-success btn-sm">Сохранить изменения</button>
+						<hr>
+						<button type="button" class="btn btn-success btn-sm" id="btnSaveChanges">Сохранить изменения</button>
 					</div>
 				
 			</div>
@@ -89,6 +89,35 @@
 		</div>
 	</div>
 </div>
+<style>
+	#infoBar{
+		position: fixed;
+		bottom: 0px;
+		left: 50%;
+		z-index: 10000;
+		background: #E8A833;
+		display: none;
+		height: 30px;
+		transform: translateX(-50%);
+		border-radius: 8px 8px 0 0;
+	}
+	.infoBar{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.infoBar span{
+		margin: 0.2rem 1rem;
+	}
+
+</style>
+<div id="infoBar">
+	<div class="infoBar">
+		<span>Изменения сохранены!</span>
+	</div>
+</div>
+
+
 
 <?php
 // Получаем информацию о логисте группы
