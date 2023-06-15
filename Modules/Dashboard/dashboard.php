@@ -132,7 +132,7 @@
 					$team_id_go = $_GET['team_id']; // Id пользователя, по которому надо сформировать таблицу
 
 					if($user_id_go != '' OR $team_id_go !=''){
-						echo "<div class='superTitle'><h5>Скорость реакции на заявку</h5><a href='/'><span class='badge badge-primary'>Показать всех</span></a></div>";
+						echo "<div class='superTitle'><h5>Скорость реакции на заявку</h5><a href='/'><span class='badge badge-primary'><i class='fas fa-eye'></i>&nbsp;Показать всех</span></a></div>";
 					}else{
 						echo "<div class='superTitle'><h5>Скорость реакции на заявку</h5></div>";
 					}

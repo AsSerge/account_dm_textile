@@ -180,7 +180,7 @@
 <div class="my-3 p-3 bg-white rounded box-shadow">	
 	<div class='container-fluid'>
 		<div class="row">
-			<h5>Загруженные документы (Бланки заказа)</h5>
+			<h5>Загруженные документы (Бланки заказа)</h5>			
 			<div class="col-12 col-md-12 col-sm-12 AvailableDocuments">
 				<?php
 				$stm = $pdo->prepare("SELECT * FROM files WHERE 1");

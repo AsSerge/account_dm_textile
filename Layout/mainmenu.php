@@ -84,7 +84,7 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
 					<a class="dropdown-item" href="/index.php?module=UserList">Список пользователей</a>	
 					<a class="dropdown-item" href="/index.php?module=UserRegistration">Регистрация пользователя</a>
-					<a class="dropdown-item" href="/index.php?module=UserTeamEditor">Редактор групп</a>
+					<a class="dropdown-item" href="/index.php?module=UserTeamEditor">Редактор групповой почты</a>
 					<a class="dropdown-item" href="/index.php?module=DocumentSetting">Приватные документы (БЗ)</a>
 					<a class="dropdown-item" href="/index.php?module=PublicDocs"">Общие документы</a>
 					</div>

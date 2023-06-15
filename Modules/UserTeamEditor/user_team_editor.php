@@ -9,6 +9,9 @@
 	.pulse{
 		font-size: 0.8rem;
 }
+	.pulse th:first-child, td:first-child {
+		font-weight: 700;
+	}
 	.pulse th, td {
 		vertical-align: middle !important;	
 }
@@ -40,7 +43,7 @@
 				<h5>Группы клиентов</h5>
 				
 					<table class='table table-sm pulse' id='clientGroupsTable'>
-					<thead><tr><td>ID</td><td>Команда</td><td>Логист</td><td>Почта 1</td><td>Почта 2</td></tr></thead>
+					<thead><tr><td>Команда</td><td>Логист</td><td>Почта 1</td><td>Почта 2</td></tr></thead>
 					<tbody>
 					<?php
 					$stm = $pdo->prepare("SELECT * FROM user_teams WHERE 1");
@@ -49,7 +52,6 @@
 
 					foreach($group_mail AS $dm){
 						echo "<tr>";
-						echo "<td>".$dm['team_id']."</td>";
 						echo "<td>".$dm['team_name']."</td>";
 						echo "<td>".getLogistName($pdo, $dm['team_id'])."</td>";
 						echo "<td><input type='text' class='team_mail' data-mail-id='1' data-team-id='".$dm['team_id']."' value='".$dm['team_mail_1']."'></td>";
