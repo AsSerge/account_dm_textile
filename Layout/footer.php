@@ -9,7 +9,7 @@
 	<script src = "/js/bootstrap-datepicker.min.js"></script>
 	<!-- Кастомизация интерфейса -->
 	<script src = "/js/custom.js"></script>	
-	<script src = '/js/jquery.form.min.js'></script>	
+	<script src = '/js/jquery.form.min.js'></script>
 
 	<!-- Локальный скрипт -->
 	<script src = '<?=$js_local_source?>'></script>

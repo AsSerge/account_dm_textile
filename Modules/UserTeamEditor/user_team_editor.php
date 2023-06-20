@@ -89,6 +89,26 @@
 		</div>
 	</div>
 </div>
+
+<style>
+.svgin svg{
+	/* border: 1px dotted #E8A833;	 */
+}
+</style>
+
+<div class="my-3 p-3 bg-white rounded box-shadow">	
+	<div class='container-fluid'>
+		<div class="row">
+			<div class="col-12 col-md-6 col-sm-12 svgin" id="diagramFather">
+					<h5>Холст, масло...</h5>
+					<svg xmlns="http://www.w3.org/2000/svg" id="svg-container"></svg>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 <style>
 	#infoBar{
 		position: fixed;
