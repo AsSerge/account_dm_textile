@@ -24,11 +24,20 @@ $(window).on("resize", function () {
 
 // Функция рисования диаграммы
 function drowDiagramm(data) { 
+
+
 	var products = [3, 15, 65, 40, 50, 60, 70, 80, 45, 15, 140, 90, 190, 70, 90, 60, 190, 105];
 	// var products = data;
+
+	// var products = []
+	// for (var i = 0; i <= 10; i++) { 
+	// 	products.push((Math.random() * 10).toFixed(2));
+	// }
+
+	
 	var blockFather = $("#diagramFather").width();	
 
-	products = products.sort((a, b) => b - a); // Сортируеи массив	
+	// products = products.sort((a, b) => b - a); // Сортируеи массив	
 	
 	console.log(Math.max.apply(null, products));
 	console.log(Math.min.apply(null, products));
@@ -48,7 +57,7 @@ function drowDiagramm(data) {
 		bar_data_space: 1,
 		bar_fill: '#E8A833',
 		text_fill: '#E8A833',
-		font_size: '10'
+		font_size: '11'
 	}
 
 	var svg = $('#svg-container'); // Определяем контейнер для диаграммы
